@@ -1,5 +1,3 @@
 # Infra-jerusalem-1
 
-test
-
-test
+TEST
