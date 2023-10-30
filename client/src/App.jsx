@@ -16,7 +16,7 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<AppLayout />}>
-        <Route index element={<p>Dashboard</p>} />
+        <Route index element={<p >Dashboard</p>} />
         <Route path="Projects" element={<p>Projects</p>} />
         <Route path="Board" element={<p>Board </p>} />
         <Route path="AddUser" element={<p>AddUser </p>} />
@@ -29,6 +29,7 @@ export default function App() {
   return (
     <div>
       <RouterProvider router={router} />
+      
     </div>
   );
 }
