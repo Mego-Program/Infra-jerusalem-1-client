@@ -19,13 +19,16 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<AppLayout />}>
-        <Route index element={<p>Dashboard</p>} />
+        <Route index element={<p >Dashboard</p>} />
         <Route path="Projects" element={<p>Projects</p>} />
         <Route path="Board" element={<p>Board </p>} />
         <Route path="AddUser" element={<p>AddUser </p>} />
         <Route path="Messages" element={<p>Messages </p>} />
         <Route path="signup" element={<SignUp/>} />
         <Route path="signin" element={<SignIn/>} />
+
+        <Route path="Settings" element={<p>Settings </p>} />
+        <Route path="Info" element={<p>Info </p>} />
         <Route path="*" element={<p>NotFound </p>} />
       </Route>
     )
@@ -34,6 +37,7 @@ export default function App() {
   return (
     <div style={{ backgroundColor: '#21213E'}}>
       <RouterProvider router={router} />
+      
     </div>
   );
 }
