@@ -15,6 +15,11 @@ import SignUp from './components/login/signup.jsx'
 import SignIn from "./components/login/signin.jsx";
 
 
+function sendDatd(){
+  console.log("gjhgjhgjhgh");
+}
+
+
 export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,7 +29,7 @@ export default function App() {
         <Route path="Board" element={<p>Board </p>} />
         <Route path="AddUser" element={<p>AddUser </p>} />
         <Route path="Messages" element={<p>Messages </p>} />
-        <Route path="signup" element={<SignUp/>} />
+        <Route path="signup" element={<SignUp/>}/>
         <Route path="signin" element={<SignIn/>} />
 
         <Route path="Settings" element={<p>Settings </p>} />
