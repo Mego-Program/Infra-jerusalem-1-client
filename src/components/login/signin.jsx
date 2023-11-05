@@ -42,16 +42,13 @@ export default function SignIn() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5050/users/login",
+      const response = await axios.post("http://localhost:5050/users/login", {
         sendData,
-        
-          headers: {
-            "Content-Type": "application/json",
-          },
 
-        }
-      );
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status == 200) {
         const token = response.data.token;
@@ -69,12 +66,14 @@ export default function SignIn() {
         component="main"
         maxWidth="xs"
         sx={{
-         backgroundColor: 'darkblue.main',
-            borderRadius: '10px',
-            color: 'white.main',
-            '.MuiInputLabel-root, .MuiSvgIcon-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline': {
-              color: 'inherit',
-              borderColor: 'currentColor',
+          backgroundColor: "darkblue.main",
+          borderRadius: "10px",
+          color: "white.main",
+          ".MuiInputLabel-root, .MuiSvgIcon-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline":
+            {
+              color: "inherit",
+              borderColor: "currentColor",
+            },
         }}
       >
         <CssBaseline />
@@ -86,18 +85,19 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-
-          <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
-            <LockOutlinedIcon 
-            sx={{
-                fill: 'inherit',
+          <Avatar sx={{ m: 1, bgcolor: "yelow.main" }}>
+            <LockOutlinedIcon
+              sx={{
+                fill: "inherit",
               }}
             />
           </Avatar>
-          <Typography component="h1" variant="h5"
-          sx={{
-            color: 'yelow.main',
-          }}
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{
+              color: "yelow.main",
+            }}
           >
             Sign in
           </Typography>
@@ -130,13 +130,19 @@ export default function SignIn() {
               color="yelow"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="yelow" sx ={{
-                color: 'white.main',
-            '.MuiSvgIcon-root': {
-              color: 'inherit',
-              borderColor: 'currentColor',
-            }
-              }}/>}
+              control={
+                <Checkbox
+                  value="remember"
+                  color="yelow"
+                  sx={{
+                    color: "white.main",
+                    ".MuiSvgIcon-root": {
+                      color: "inherit",
+                      borderColor: "currentColor",
+                    },
+                  }}
+                />
+              }
               label="Remember me"
             />
             <Button

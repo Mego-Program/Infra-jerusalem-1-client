@@ -1,24 +1,22 @@
-
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import theme from '../../../src/theme';
-import InputAdornment from '@mui/material/InputAdornment';
-import EyeIcon from '@mui/icons-material/RemoveRedEye';
-import { useState } from 'react';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import theme from "../../../src/theme";
+import InputAdornment from "@mui/material/InputAdornment";
+import EyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useState } from "react";
 import axios from "axios";
-
 
 function Copyright(props) {
   return (
@@ -32,34 +30,9 @@ function Copyright(props) {
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = (event) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-  
-
-  function handleClickShowPassword() {
-    setShowPassword(!showPassword);
-  }
-  
-  
-
-
-  return (
-    
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs"
-      sx={
-        {
-            backgroundColor: 'darkblue.main',
-            borderRadius: '10px',
-            color: 'white.main',
-            '.MuiInputLabel-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline': {
-              color: 'inherit',
-              borderColor: 'currentColor',
-            }
-
     const sendData = {
       email: data.get("email"),
       password: data.get("password"),
@@ -76,7 +49,6 @@ export default function SignUp() {
           headers: {
             "Content-Type": "application/json",
           },
-
         }
       );
 
@@ -89,14 +61,24 @@ export default function SignUp() {
     }
   };
 
+  function handleClickShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container
         component="main"
         maxWidth="xs"
         sx={{
-          backgroundColor: "#121231",
+          backgroundColor: "darkblue.main",
           borderRadius: "10px",
+          color: "white.main",
+          ".MuiInputLabel-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline":
+            {
+              color: "inherit",
+              borderColor: "currentColor",
+            },
         }}
       >
         <CssBaseline />
@@ -108,21 +90,19 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-
-          <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
-            <LockOutlinedIcon 
-            sx={{
-                fill: 'inherit',
+          <Avatar sx={{ m: 1, bgcolor: "yelow.main" }}>
+            <LockOutlinedIcon
+              sx={{
+                fill: "inherit",
               }}
             />
           </Avatar>
-          <Typography 
-          component="h1" 
-          variant="h5"
-          sx={{
-            color: 'yelow.main',
-          }}
-
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{
+              color: "yelow.main",
+            }}
           >
             Sign up
           </Typography>
@@ -133,7 +113,6 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -143,8 +122,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  color = 'yelow'
-
+                  color="yelow"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -156,7 +134,6 @@ export default function SignUp() {
                   name="lastName"
                   autoComplete="family-name"
                   color="yelow"
-
 
                   // focused
                 />
@@ -189,18 +166,20 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                    <EyeIcon onClick={handleClickShowPassword} color='white'/>
-                    </InputAdornment>
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <EyeIcon
+                          onClick={handleClickShowPassword}
+                          color="white"
+                        />
+                      </InputAdornment>
                     ),
-                    }}
+                  }}
                   id="password"
                   autoComplete="new-password"
                   color="yelow"
-
                 />
               </Grid>
               <Grid item xs={12}>
@@ -209,14 +188,17 @@ export default function SignUp() {
                   fullWidth
                   name="ConfirmPassword"
                   label="Confirm Password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                    <EyeIcon onClick={handleClickShowPassword} color='white'/>
-                    </InputAdornment>
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <EyeIcon
+                          onClick={handleClickShowPassword}
+                          color="white"
+                        />
+                      </InputAdornment>
                     ),
-                    }}
+                  }}
                   id="ConfirmPassword"
                   color="yelow"
                 />
