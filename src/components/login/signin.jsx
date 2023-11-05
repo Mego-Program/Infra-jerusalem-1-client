@@ -45,10 +45,11 @@ export default function SignIn() {
       const response = await axios.post(
         "http://localhost:5050/users/login",
         sendData,
-        {
+        
           headers: {
             "Content-Type": "application/json",
           },
+
         }
       );
 
@@ -68,8 +69,12 @@ export default function SignIn() {
         component="main"
         maxWidth="xs"
         sx={{
-          backgroundColor: "#121231",
-          borderRadius: "10px",
+         backgroundColor: 'darkblue.main',
+            borderRadius: '10px',
+            color: 'white.main',
+            '.MuiInputLabel-root, .MuiSvgIcon-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline': {
+              color: 'inherit',
+              borderColor: 'currentColor',
         }}
       >
         <CssBaseline />
@@ -81,19 +86,18 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#F6C927" }}>
-            <LockOutlinedIcon
-              sx={{
-                fill: "#21213E",
+
+          <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
+            <LockOutlinedIcon 
+            sx={{
+                fill: 'inherit',
               }}
             />
           </Avatar>
-          <Typography
-            component="h1"
-            variant="h5"
-            sx={{
-              color: "#F6C927",
-            }}
+          <Typography component="h1" variant="h5"
+          sx={{
+            color: 'yelow.main',
+          }}
           >
             Sign in
           </Typography>
@@ -126,7 +130,13 @@ export default function SignIn() {
               color="yelow"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="yelow" />}
+              control={<Checkbox value="remember" color="yelow" sx ={{
+                color: 'white.main',
+            '.MuiSvgIcon-root': {
+              color: 'inherit',
+              borderColor: 'currentColor',
+            }
+              }}/>}
               label="Remember me"
             />
             <Button
