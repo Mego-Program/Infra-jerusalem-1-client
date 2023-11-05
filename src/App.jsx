@@ -11,6 +11,7 @@ import {
 
 //Layout
 import AppLayout from "./components/AppLayout.jsx";
+import NotFound from "./components/NotFound.jsx";
 
 export default function App() {
   const router = createBrowserRouter(
@@ -19,11 +20,11 @@ export default function App() {
         <Route index element={<p >Dashboard</p>} />
         <Route path="Projects" element={<p>Projects</p>} />
         <Route path="Board" element={<p>Board </p>} />
-        <Route path="AddUser" element={<p>AddUser </p>} />
+        <Route path="AddUser" element={<p>Add User </p>} />
         <Route path="Messages" element={<p>Messages </p>} />
         <Route path="Settings" element={<p>Settings </p>} />
         <Route path="Info" element={<p>Info </p>} />
-        <Route path="*" element={<p>NotFound </p>} />
+        <Route path="*" element={<NotFound/>} />
       </Route>
     )
   );
