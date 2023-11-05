@@ -4,7 +4,6 @@ import { red } from '@mui/material/colors';
 // Create a theme instance.
 const theme = createTheme({
   palette: {
-    
     verydarkblue: {
       main: '#21213E',
     },
@@ -23,6 +22,9 @@ const theme = createTheme({
     borderColor: {
       primary: '#fff', // Set the text color to white
     },
+    text:{
+      primary: '#F6C927',
+    }
     
     
   },

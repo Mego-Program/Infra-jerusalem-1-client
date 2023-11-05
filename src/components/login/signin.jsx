@@ -45,8 +45,13 @@ export default function SignIn() {
       <Container component="main" maxWidth="xs"
     sx={
         {
-            backgroundColor: '#121231',
+            backgroundColor: 'darkblue.main',
             borderRadius: '10px',
+            color: 'white.main',
+            '.MuiInputLabel-root, .MuiSvgIcon-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline': {
+              color: 'inherit',
+              borderColor: 'currentColor',
+            }
         }
     }
     >
@@ -59,16 +64,16 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#F6C927' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
             <LockOutlinedIcon 
             sx={{
-                fill: '#21213E',
+                fill: 'inherit',
               }}
             />
           </Avatar>
           <Typography component="h1" variant="h5"
           sx={{
-            color: '#F6C927',
+            color: 'yelow.main',
           }}
           >
             Sign in
@@ -99,7 +104,13 @@ export default function SignIn() {
               
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="yelow" />}
+              control={<Checkbox value="remember" color="yelow" sx ={{
+                color: 'white.main',
+            '.MuiSvgIcon-root': {
+              color: 'inherit',
+              borderColor: 'currentColor',
+            }
+              }}/>}
               label="Remember me"
             />
             <Button
