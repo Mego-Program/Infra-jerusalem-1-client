@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import "./AppLayout.css";
+import Search from "./search";
 import { Grid, Button, Box, Stack } from "@mui/material";
 import {
   Dashboard,
@@ -150,8 +151,16 @@ export default function AppLayout() {
       </Grid>
 
       <Grid item xs={10}>
-        <main>
-          <Outlet />
+        <main sx={{m}}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={20}
+          >
+            <Outlet />
+            <Search />
+          </Stack>
         </main>
       </Grid>
     </Grid>
