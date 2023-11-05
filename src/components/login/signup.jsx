@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,38 +17,25 @@ import theme from '../../../src/theme';
 import InputAdornment from '@mui/material/InputAdornment';
 import EyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useState } from 'react';
-
-
-
+import axios from "axios";
 
 
 function Copyright(props) {
   return (
-    <Typography variant="body2"  align="center" {...props}>
-      
-      <Link color="inherit" href="https://mui.com/">
-        
-      </Link>
-     
+    <Typography variant="body2" align="center" {...props}>
+      <Link color="inherit" href="https://mui.com/"></Link>
     </Typography>
   );
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-
-
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      username: data.get('username'),
-    });
-  };
 
   
 
@@ -71,19 +59,56 @@ export default function SignUp() {
               color: 'inherit',
               borderColor: 'currentColor',
             }
+
+    const sendData = {
+      email: data.get("email"),
+      password: data.get("password"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      username: data.get("username"),
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5050/users/signup",
+        sendData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+
         }
+      );
+
+      if (response.status == 200) {
+        const token = response.data.token;
+        localStorage.setItem("jsonwebtoken", token);
+      }
+    } catch (error) {
+      console.error("signup failed: " + error.message);
     }
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          backgroundColor: "#121231",
+          borderRadius: "10px",
+        }}
       >
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
+
           <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
             <LockOutlinedIcon 
             sx={{
@@ -97,13 +122,21 @@ export default function SignUp() {
           sx={{
             color: 'yelow.main',
           }}
+
           >
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} >
+
+              <Grid item xs={12} sm={6}>
                 <TextField
+                  autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
@@ -111,6 +144,7 @@ export default function SignUp() {
                   label="First Name"
                   autoFocus
                   color = 'yelow'
+
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -120,8 +154,10 @@ export default function SignUp() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  color='yelow'
-                  
+                  autoComplete="family-name"
+                  color="yelow"
+
+
                   // focused
                 />
               </Grid>
@@ -132,7 +168,8 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  color='yelow'
+                  autoComplete="email"
+                  color="yelow"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -142,7 +179,8 @@ export default function SignUp() {
                   id="username"
                   label="User Name"
                   name="username"
-                  color='yelow'
+                  autoComplete="user-name"
+                  color="yelow"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -160,7 +198,9 @@ export default function SignUp() {
                     ),
                     }}
                   id="password"
-                  color='yelow'
+                  autoComplete="new-password"
+                  color="yelow"
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -178,25 +218,26 @@ export default function SignUp() {
                     ),
                     }}
                   id="ConfirmPassword"
-                  color='yelow'
+                  color="yelow"
                 />
               </Grid>
-              
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              color='yelow'
+              color="yelow"
             >
               Sign Up
             </Button>
-            <Grid container 
-            sx={{
-                marginBottom: '20px',
+            <Grid
+              container
+              sx={{
+                marginBottom: "20px",
               }}
-            justifyContent="flex-end">
+              justifyContent="flex-end"
+            >
               <Grid item>
                 <Link href="/signin" variant="body2">
                   Already have an account? Sign in

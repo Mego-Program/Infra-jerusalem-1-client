@@ -1,28 +1,29 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import theme from '../../../src/theme';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import theme from "../../../src/theme";
+import axios from "axios";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2"  align="center" {...props} sx={{color:'#21213E'}}>
-      
-      <Link  href="https://mui.com/">
-       
-      </Link>
-      
-     
+    <Typography
+      variant="body2"
+      align="center"
+      {...props}
+      sx={{ color: "#21213E" }}
+    >
+      <Link href="https://mui.com/"></Link>
     </Typography>
   );
 }
@@ -31,39 +32,61 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const sendData = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5050/users/login",
+        sendData,
+        
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+        }
+      );
+
+      if (response.status == 200) {
+        const token = response.data.token;
+        console.log(token);
+        localStorage.setItem("jsonwebtoken", token);
+      }
+    } catch (error) {
+      console.error("Login failed: " + error.message);
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs"
-    sx={
-        {
-            backgroundColor: 'darkblue.main',
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+         backgroundColor: 'darkblue.main',
             borderRadius: '10px',
             color: 'white.main',
             '.MuiInputLabel-root, .MuiSvgIcon-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline': {
               color: 'inherit',
               borderColor: 'currentColor',
-            }
-        }
-    }
-    >
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
+
           <Avatar sx={{ m: 1, bgcolor: 'yelow.main' }}>
             <LockOutlinedIcon 
             sx={{
@@ -78,8 +101,13 @@ export default function SignIn() {
           >
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField 
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -88,8 +116,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
-              color='yelow'
-              
+              color="yelow"
             />
             <TextField
               margin="normal"
@@ -100,8 +127,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              color='yelow'
-              
+              color="yelow"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="yelow" sx ={{
@@ -117,15 +143,15 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2}}
-              color='yelow'
+              sx={{ mt: 3, mb: 2 }}
+              color="yelow"
             >
               Sign In
             </Button>
-            <Grid container
-            sx={{
-                marginBottom: '20px',
-    
+            <Grid
+              container
+              sx={{
+                marginBottom: "20px",
               }}
             >
               <Grid item xs>
