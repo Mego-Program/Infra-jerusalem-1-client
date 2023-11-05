@@ -1,0 +1,22 @@
+.app-layout .sidebar {
+  background-color: #121231;
+  padding: 30px 10px 30px 10px;
+  height: 100vh;
+}
+
+.app-layout .sidebar .nav-button {
+  justify-content: left;
+  margin-bottom: 5px;
+  padding-left: 20px;
+  color: white;
+  font-family: "Poppins";
+}
+.app-layout .sidebar .nav-button:hover {
+  background-color: #f6c9276b;
+}
+.app-layout .sidebar .nav-button.selected {
+  background-color: #f6c927;
+}
+.app-layout .sidebar .nav-button.selected:hover {
+  background-color: #f6c927;
+}
