@@ -14,6 +14,8 @@ import AppLayout from "./components/AppLayout.jsx";
 import NotFound from "./components/NotFound.jsx";
 import SignUp from './components/login/signup.jsx'
 import SignIn from "./components/login/signin.jsx";
+import GetCode from "./components/login/getCodeByEmail.jsx";
+
 
 
 
@@ -28,6 +30,7 @@ export default function App() {
         <Route path="Messages" element={<p>Messages </p>} />
         <Route path="signup" element={<SignUp/>}/>
         <Route path="signin" element={<SignIn/>} />
+        <Route path="GetCodeByEmail" element={<GetCode />} />
 
         <Route path="Settings" element={<p>Settings </p>} />
         <Route path="Info" element={<p>Info </p>} />
