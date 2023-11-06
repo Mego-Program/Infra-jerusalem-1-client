@@ -134,9 +134,9 @@ else{
 
   let icon = null;
 
-    if (uNameError === "Available!") {
+    if (uNameAvailable === "Available!") {
       icon = <CloseIcon style={{ color: 'red' }} />;
-    } else if (uNameError === "Not available!") {
+    } else if (uNameAvailable === "Not available!") {
       icon = <DoneIcon style={{ color: 'green' }} />;
     }
     else{
