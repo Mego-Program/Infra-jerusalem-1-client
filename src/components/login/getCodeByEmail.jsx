@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -22,14 +23,18 @@ function Copyright(props) {
 }
 
 export default function GetCode(props) {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const result = await axios.post("http://localhost:5050/users/verifyEmail", {code: data.get("code"), email: props.email})
+    const result = await axios.post("http://localhost:5050/users/verifyEmail", {
+      code: data.get("code"),
+      email: props.email,
+    });
 
-    if(result.status == 200){
-       const token = result.data.token;
-        localStorage.setItem("jsonwebtoken", token);
+    if (result.status == 200) {
+      navigate("/signin");
     }
     console.log({
       code: data.get("code"),
