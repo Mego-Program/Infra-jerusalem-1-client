@@ -108,7 +108,7 @@ export default function GetCode(props) {
               sx={{ mt: 3, mb: 2 }}
               color="yelow"
             >
-              Sand
+              Send
             </Button>
             <Grid
               container
