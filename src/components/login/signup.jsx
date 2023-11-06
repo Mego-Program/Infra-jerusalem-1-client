@@ -17,6 +17,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from '@mui/material/FormHelperText';
+import GetCode from "./getCodeByEmail";
 
 function Copyright(props) {
   return (
@@ -43,6 +44,9 @@ export default function SignUp() {
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();}
+  const [page, setPage] = useState("getcode");
+  const [email, setEmail] = useState("");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -68,8 +72,9 @@ export default function SignUp() {
       );
 
       if (response.status == 200) {
-        const token = response.data.token;
-        localStorage.setItem("jsonwebtoken", token);
+        setPage("code")
+        // const token = response.data.token;
+        // localStorage.setItem("jsonwebtoken", token);
       }
     } catch (error) {
       console.error("signup failed: " + error.message);
@@ -123,187 +128,194 @@ else{
   
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{
-          backgroundColor: "darkblue.main",
-          borderRadius: "10px",
-          color: "white.main",
-          ".MuiInputLabel-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline":
-            {
-              color: "inherit",
-              borderColor: "currentColor",
-            },
-        }}
-      >
-        <CssBaseline />
-        <Box
+    <>
+      {page == "code" && <GetCode email={email} />}
+      {page == "signup" && (
+        <ThemeProvider theme={theme}>
+        <Container
+          component="main"
+          maxWidth="xs"
           sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            backgroundColor: "darkblue.main",
+            borderRadius: "10px",
+            color: "white.main",
+            ".MuiInputLabel-root, .MuiOutlinedInput-root, .MuiOutlinedInput-notchedOutline":
+              {
+                color: "inherit",
+                borderColor: "currentColor",
+              },
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "yelow.main" }}>
-            <LockOutlinedIcon
-              sx={{
-                fill: "inherit",
-              }}
-            />
-          </Avatar>
-          <Typography
-            component="h1"
-            variant="h5"
+          <CssBaseline />
+          <Box
             sx={{
-              color: "yelow.main",
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Sign up
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{fNameError}</FormHelperText>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{lNameError}</FormHelperText>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{emailError}</FormHelperText>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="username"
-                  label="User Name"
-                  name="username"
-                  autoComplete="user-name"
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{uNameError}</FormHelperText>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) => {setPassword(e.target.value)}}
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                          color="white"
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  id="password"
-                  autoComplete="new-password"
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{pasError}</FormHelperText>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) => {setConfirmPassword(e.target.value)}}
-                  required
-                  fullWidth
-                  name="ConfirmPassword"
-                  label="Confirm Password"
-                  type={showConfirmPassword ? "text" : "password"}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowConfirmPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                          color="white"
-                        >
-                          {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  id="ConfirmPassword"
-                  color="yelow"
-                />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{errorMessage}</FormHelperText>
-              </Grid>
-              </Grid>
-              
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              color="yelow"
-            >
-              Sign Up
-            </Button>
-            <Grid
-              container
+            <Avatar sx={{ m: 1, bgcolor: "yelow.main" }}>
+              <LockOutlinedIcon
+                sx={{
+                  fill: "inherit",
+                }}
+              />
+            </Avatar>
+            <Typography
+              component="h1"
+              variant="h5"
               sx={{
-                marginBottom: "20px",
+                color: "yelow.main",
               }}
-              justifyContent="flex-end"
             >
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+              Sign up
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    color="yelow"
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{fNameError}</FormHelperText>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                    color="yelow"
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{lNameError}</FormHelperText>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    color="yelow"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{emailError}</FormHelperText>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="username"
+                    label="User Name"
+                    name="username"
+                    autoComplete="user-name"
+                    color="yelow"
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{uNameError}</FormHelperText>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) => {setPassword(e.target.value)}}
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type={showPassword ? "text" : "password"}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                            color="white"
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    id="password"
+                    autoComplete="new-password"
+                    color="yelow"
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{pasError}</FormHelperText>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) => {setConfirmPassword(e.target.value)}}
+                    required
+                    fullWidth
+                    name="ConfirmPassword"
+                    label="Confirm Password"
+                    type={showConfirmPassword ? "text" : "password"}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                            color="white"
+                          >
+                            {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    id="ConfirmPassword"
+                    color="yelow"
+                  />
+                  <FormHelperText id="standard-weight-helper-text" error='true'>{errorMessage}</FormHelperText>
+                </Grid>
+                </Grid>
+                
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                color="yelow"
+              >
+                Sign Up
+              </Button>
+              <Grid
+                container
+                sx={{
+                  marginBottom: "20px",
+                }}
+                justifyContent="flex-end"
+              >
+                <Grid item>
+                  <Link href="/signin" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </ThemeProvider>
+      )}
+    </>
   );
 }

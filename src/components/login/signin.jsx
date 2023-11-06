@@ -20,6 +20,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from '@mui/material/FormHelperText';
+import {useNavigate} from 'react-router-dom';
+
 
 function Copyright(props) {
   return (
@@ -44,6 +46,7 @@ export default function SignIn() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();}
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -66,8 +69,8 @@ export default function SignIn() {
 
       if (response.status == 200) {
         const token = response.data.token;
-        console.log(token);
         localStorage.setItem("jsonwebtoken", token);
+        navigate('/');
       }
     } catch (error) {
       console.error("Login failed: " + error.message);
