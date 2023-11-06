@@ -22,7 +22,7 @@ function Copyright(props) {
   );
 }
 
-export default function GetCode(props) {
+export function GetCode(props) {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {

@@ -17,7 +17,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from '@mui/material/FormHelperText';
-import GetCode from "./getCodeByEmail";
+import {GetCode} from "./getCodeByEmail";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import { Icon } from "@mui/material";
