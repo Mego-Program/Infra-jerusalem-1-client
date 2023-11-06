@@ -18,6 +18,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from '@mui/material/FormHelperText';
 import GetCode from "./getCodeByEmail";
+import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
+import { Icon } from "@mui/material";
 
 
 
@@ -35,10 +38,11 @@ export default function SignUp() {
   const[fNameError, setfNameError] = useState("")
   const[lNameError, setlNameError] = useState("")
   const[uNameError, setuNameError] = useState("")
+  const[uNameAvailable, setuNameAvailable] = useState("")
   const[emailError, setemailError] = useState("")
   const[pasError, setPasError] = useState("")
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const[showPassword, setShowPassword] = useState(false);
+  const[showConfirmPassword, setShowConfirmPassword] = useState(false);
   const[password, setPassword] = useState("")
   const[confirmPassword, setConfirmPassword] = useState("")
   const[errorMessage, setErrorMessage] = useState("")
@@ -53,11 +57,11 @@ export default function SignUp() {
     try {
       const response = await axios.post('http://localhost:5050/users/userName', {Name: event.target.value})
       if(response.status == 200){
-      setuNameError("Available!")
+        setuNameAvailable("Available!")
 
       }
     } catch (error) {
-      setuNameError("Not available!")
+      setuNameAvailable("Not available!")
     }
   }
 
@@ -127,6 +131,17 @@ else{
   
 }
 };
+
+  let icon = null;
+
+    if (uNameError === "Available!") {
+      icon = <CloseIcon style={{ color: 'red' }} />;
+    } else if (uNameError === "Not available!") {
+      icon = <DoneIcon style={{ color: 'green' }} />;
+    }
+    else{
+      icon = null
+    }
 
 
   useEffect(() => {
@@ -240,6 +255,16 @@ else{
                     name="username"
                     autoComplete="user-name"
                     color="yelow"
+                    InputProps={{
+                      endAdornment: (
+                          <Icon
+                            edge="end"
+                            color="white"
+                          >
+                            {icon}
+                          </Icon>
+                      ),
+                    }}
                   />
                   <FormHelperText id="standard-weight-helper-text" error='true'>{uNameError}</FormHelperText>
                 </Grid>
