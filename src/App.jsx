@@ -37,7 +37,7 @@ export default function App() {
   );
 
   return (
-    <div style={{ backgroundColor: '#21213E'}}>
+    <div >
       <RouterProvider router={router} />
       
     </div>
