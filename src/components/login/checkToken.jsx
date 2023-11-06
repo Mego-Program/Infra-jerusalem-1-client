@@ -13,7 +13,7 @@ export default function tokencheck() {
   }
   const res = async () => {
     try {
-      const response = await axios.post("/token", localStorageToken);
+      const response = await axios.post("http://localhost:5050/users/token", localStorageToken);
       if (response.status == 200) {
         navigate("/");
         return localStorageToken

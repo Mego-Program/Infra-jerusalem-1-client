@@ -19,6 +19,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from '@mui/material/FormHelperText';
 import GetCode from "./getCodeByEmail";
 
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" align="center" {...props}>
@@ -44,8 +46,20 @@ export default function SignUp() {
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();}
-  const [page, setPage] = useState("getcode");
+  const [page, setPage] = useState("signup");
   const [email, setEmail] = useState("");
+
+  const usernameCheck = async (event) => {
+    try {
+      const response = await axios.post('http://localhost:5050/users/userName', {Name: event.target.value})
+      if(response.status == 200){
+      setuNameError("Available!")
+
+      }
+    } catch (error) {
+      setuNameError("Not available!")
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,8 +87,7 @@ export default function SignUp() {
 
       if (response.status == 200) {
         setPage("code")
-        // const token = response.data.token;
-        // localStorage.setItem("jsonwebtoken", token);
+
       }
     } catch (error) {
       console.error("signup failed: " + error.message);
@@ -219,6 +232,7 @@ else{
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={usernameCheck}
                     required
                     fullWidth
                     id="username"
