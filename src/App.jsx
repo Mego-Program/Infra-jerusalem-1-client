@@ -25,10 +25,10 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-      <Route path="signup" element={<SignUp/>}/>
-      <Route path="signin" element={<SignIn/>} />
-      <Route path="getcode" element={<GetCode/>} />
-      <Route path="forgot" element={<Forgot/>} />
+      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/signin" element={<SignIn/>} />
+      <Route path="/getcode" element={<GetCode/>} />
+      <Route path="/forgot" element={<Forgot/>} />
       <Route path="/" element={<AppLayout />}>
         <Route index element={<p >Dashboard</p>} />
         <Route path="Projects" element={<p>Projects</p>} />
