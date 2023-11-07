@@ -3,7 +3,6 @@ import { Outlet, NavLink } from "react-router-dom";
 import "./AppLayout.css";
 import Search from "./Search.jsx";
 import ProfileCard from "./ProfileCard.jsx";
-
 import { Grid, Button, Box, Stack } from "@mui/material";
 import {
   Dashboard,
