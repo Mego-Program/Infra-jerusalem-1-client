@@ -21,6 +21,8 @@ import { GetCode } from "./getCodeByEmail";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "@mui/material";
+import urlPage from "../../../url/urlPath";
+
 
 function Copyright(props) {
   return (
@@ -54,12 +56,12 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
 
   const usernameCheck = async (event) => {
-    if (event == " ") {
+    if (event.target.value == "") {
       setuNameAvailable("");
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:5050/users/userName",
+          urlPage + "users/userName",
           { Name: event.target.value }
         );
         if (response.status == 200) {
@@ -93,7 +95,7 @@ export default function SignUp() {
 
       try {
         const response = await axios.post(
-          "http://localhost:5050/users/signup",
+          urlPage + "users/signup",
           sendData,
           {
             headers: {
