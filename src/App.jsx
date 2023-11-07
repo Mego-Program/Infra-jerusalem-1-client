@@ -15,7 +15,7 @@ import NotFound from "./components/NotFound.jsx";
 import SignUp from './components/login/signup.jsx'
 import SignIn from "./components/login/signin.jsx";
 import {GetCode} from "./components/login/getCodeByEmail.jsx"
-import Forgot from "./components/login/forgot.jsx"
+import Forgot from "./components/forgetPassword/forgot.jsx"
 
 
 

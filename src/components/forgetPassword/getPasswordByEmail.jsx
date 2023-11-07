@@ -1,3 +1,4 @@
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,9 +11,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import FormHelperText from "@mui/material/FormHelperText";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -22,26 +22,26 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
+export default function GetCode(props) {
+  
+  const navigate = useNavigate();
 
-export default function Forgot() {
-  const [emailError, setemailError] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get("email")) {
-      console.log("yes");
-      setemailError("");
-      const sendData = {
-        email: data.get("email"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        username: data.get("username"),
-      };
-    }
-  };
+    const result = await axios.post("http://localhost:5050/users/verifyEmail", {
+      password: data.get("password"),
+      email: props.email,
+    });
 
+    if (result.status == 200) {
+      navigate("/signin");
+    }
+    console.log({
+      code: data.get("code"),
+      email: props.email,
+    });
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -81,7 +81,7 @@ export default function Forgot() {
               color: "yelow.main",
             }}
           >
-            Forgot Password
+            Password verification
           </Typography>
           <Box
             component="form"
@@ -90,22 +90,18 @@ export default function Forgot() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <TextField
-                  required
-                  fullWidth
+                  margin="normal"
                   id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  label="Enter the code"
+                  name="password"
+                  autoFocus
                   color="yelow"
+                  type="password"
                 />
-                <FormHelperText id="standard-weight-helper-text" error="true">
-                  {emailError}
-                </FormHelperText>
               </Grid>
             </Grid>
-
             <Button
               type="submit"
               fullWidth
@@ -113,7 +109,7 @@ export default function Forgot() {
               sx={{ mt: 3, mb: 2 }}
               color="yelow"
             >
-              Sand
+              Send
             </Button>
             <Grid
               container
@@ -122,11 +118,6 @@ export default function Forgot() {
               }}
               justifyContent="flex-end"
             >
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Sign in
-                </Link>
-              </Grid>
             </Grid>
           </Box>
         </Box>
