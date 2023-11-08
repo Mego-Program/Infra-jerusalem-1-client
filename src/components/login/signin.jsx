@@ -225,11 +225,14 @@ export default function SignIn() {
               }}
             >
               <Grid item xs>
+
                 <NavLink to="/forgot" variant="body2">
+
                   Forgot password?
                 </NavLink>
               </Grid>
               <Grid item>
+
                 <NavLink to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </NavLink>

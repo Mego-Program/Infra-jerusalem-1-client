@@ -139,7 +139,9 @@ export function GetCode(props) {
               textAlign="center"
             >
               <Grid item xs={12}>
+
                 <NavLink to="/" variant="body2">
+
                   Already have an account? Sign in
                 </NavLink>
               </Grid>

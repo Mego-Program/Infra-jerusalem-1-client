@@ -124,6 +124,7 @@ export default function Forgot() {
               justifyContent="flex-end"
             >
               <Grid item>
+
                 <NavLink to="/" variant="body2">
                   Sign in
                 </NavLink>

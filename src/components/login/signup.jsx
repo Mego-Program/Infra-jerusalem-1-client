@@ -195,6 +195,7 @@ export default function SignUp() {
       >
       The email address is already registered in the system,
       </FormHelperText>
+
       <NavLink to="/forgot" variant="body2">
       Forgot password?
       </NavLink>
@@ -451,6 +452,7 @@ export default function SignUp() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
+
                     <NavLink to="/" variant="body2">
                       Already have an account? Sign in
                     </NavLink>
