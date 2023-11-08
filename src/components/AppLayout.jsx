@@ -163,7 +163,7 @@ export default function AppLayout() {
             spacing={20}
             sx={{ margin: "20px" }}
           >
-            <Grid item xs={7.5}></Grid>
+            <Grid item xs={7.5}>{selectedButton}</Grid>
             <Grid item xs={1.5}>
               <Search />
             </Grid>
