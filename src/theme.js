@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 
 // Create a theme instance.
 const theme = createTheme({
@@ -24,6 +24,9 @@ const theme = createTheme({
     },
     text:{
       primary: '#F6C927',
+    },
+    green:{
+      primary: '#008000',
     }
     
     

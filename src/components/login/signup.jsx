@@ -22,6 +22,9 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "@mui/material";
 import urlPage from "../../../url/urlPath";
+import { green } from "@mui/material/colors";
+import Collapse from '@mui/material/Collapse';
+
 
 
 function Copyright(props) {
@@ -35,11 +38,18 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function SignUp() {
+  const [focusedPass, setFocusedPass] = useState(false);
   const [fNameError, setfNameError] = useState("");
   const [lNameError, setlNameError] = useState("");
   const [uNameError, setuNameError] = useState("");
   const [uNameAvailable, setuNameAvailable] = useState("");
   const [emailError, setemailError] = useState("");
+  const [passLength, setpassLength] = useState(false);
+  const [passLowercase, setpassLowercase] = useState(false);
+  const [passUppercase, setpassUppercase] = useState(false);
+  const [passNumbers, setpassNumbers] = useState(false);
+  const [passSpecialChars, setpassSpecialChars] = useState(false);
+  const [emailExists, setemailExists] = useState("");
   const [pasError, setPasError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -56,6 +66,17 @@ export default function SignUp() {
   const [page, setPage] = useState("signup");
   const [email, setEmail] = useState("");
 
+  function validatePassword(password) {
+    setpassLength(password.length >= 8);
+    setpassLowercase(/[a-z]/.test(password));
+    setpassUppercase(/[A-Z]/.test(password));
+    setpassNumbers(/\d/.test(password));
+    setpassSpecialChars(/[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(password));
+    return ;
+  }
+  function validateEmail(email){
+    return !(/@/.test(email) && /[.]/.test(email))
+  }
   const usernameCheck = async (event) => {
     if (event.target.value == "") {
       setuNameAvailable("");
@@ -65,7 +86,7 @@ export default function SignUp() {
           urlPage + "users/userName",
           { Name: event.target.value }
         );
-        if (response.status == 200) {
+        if (response.status == 200 && event.target.value!= "") {
           setuNameAvailable("Available!");
         }
       } catch (error) {
@@ -77,13 +98,20 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
     if (
       data.get("email") &&
       data.get("password") &&
       data.get("firstName") &&
       data.get("lastName") &&
       data.get("username") &&
-      !errorMessage
+      !errorMessage &&
+      passLength &&
+      passLowercase &&
+      passNumbers &&
+      passSpecialChars &&
+      passUppercase &&
+      !(validateEmail(data.get("email")))
     ) {
       console.log("yes");
       const sendData = {
@@ -109,7 +137,11 @@ export default function SignUp() {
           setPage("code");
         }
       } catch (error) {
-        console.error("signup failed: " + error.message);
+        if (error.response.data.errors.msg == "one of the information is error"){
+          setemailExists("emailExists")
+        } else{
+          setemailExists("")
+        }
       }
     } else {
       if (!data.get("firstName")) {
@@ -124,6 +156,8 @@ export default function SignUp() {
       }
       if (!data.get("email")) {
         setemailError("This field is required");
+      } else if (validateEmail(data.get("email"))) {
+        setemailError("The email address is incorrect");
       } else {
         setemailError("");
       }
@@ -149,6 +183,24 @@ export default function SignUp() {
   } else {
     icon = null;
   }
+
+  let linkforgut = null;
+
+  if (emailExists == "emailExists"){
+    linkforgut = <>
+      <FormHelperText
+        id="standard-weight-helper-text"
+        error="true"
+      >
+      The email address is already registered in the system,
+      </FormHelperText>
+      <Link href="/forgot" variant="body2">
+      Forgot password?
+      </Link>
+    </>
+  }
+
+  
 
   useEffect(() => {
     if (password === confirmPassword) {
@@ -211,7 +263,7 @@ export default function SignUp() {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      autoComplete="given-name"
+                      autoComplete="off"
                       name="firstName"
                       required
                       fullWidth
@@ -234,7 +286,7 @@ export default function SignUp() {
                       id="lastName"
                       label="Last Name"
                       name="lastName"
-                      autoComplete="family-name"
+                      autoComplete="off"
                       color="yelow"
                     />
                     <FormHelperText
@@ -251,7 +303,7 @@ export default function SignUp() {
                       id="email"
                       label="Email Address"
                       name="email"
-                      autoComplete="email"
+                      autoComplete="off"
                       color="yelow"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
@@ -262,6 +314,7 @@ export default function SignUp() {
                     >
                       {emailError}
                     </FormHelperText>
+                    {linkforgut}
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -271,7 +324,7 @@ export default function SignUp() {
                       id="username"
                       label="User Name"
                       name="username"
-                      autoComplete="user-name"
+                      autoComplete="off"
                       color="yelow"
                       InputProps={{
                         endAdornment: (
@@ -292,6 +345,7 @@ export default function SignUp() {
                     <TextField
                       onChange={(e) => {
                         setPassword(e.target.value);
+                        validatePassword(e.target.value);
                       }}
                       required
                       fullWidth
@@ -318,8 +372,10 @@ export default function SignUp() {
                         ),
                       }}
                       id="password"
-                      autoComplete="new-password"
+                      autoComplete="off"
                       color="yelow"
+                      onFocus={() => setFocusedPass(true)}
+                      onBlur={() => setFocusedPass(false)}
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
@@ -327,7 +383,14 @@ export default function SignUp() {
                     >
                       {pasError}
                     </FormHelperText>
-                  </Grid>
+                    <Collapse timeout={1000} in={focusedPass}>
+                    <FormHelperText id="standard-weight-helper-text" sx={{ color: '#008000' }} error={!passUppercase}  >• Capital letter</FormHelperText>
+                    <FormHelperText id="standard-weight-helper-text" sx={{ color: '#008000' }} error={!passLowercase} >• lower-case letter</FormHelperText>
+                    <FormHelperText id="standard-weight-helper-text" sx={{ color: '#008000' }} error={!passSpecialChars} >• Special Chars</FormHelperText>
+                    <FormHelperText id="standard-weight-helper-text" sx={{ color: '#008000' }} error={!passLength} >• Minimum 8 characters</FormHelperText>
+                    <FormHelperText id="standard-weight-helper-text" sx={{ color: '#008000' }} error={!passNumbers} >• Number</FormHelperText>
+                    </Collapse>
+                    </Grid>
                   <Grid item xs={12}>
                     <TextField
                       onChange={(e) => {
@@ -335,6 +398,7 @@ export default function SignUp() {
                       }}
                       required
                       fullWidth
+                      autoComplete="off"
                       name="ConfirmPassword"
                       label="Confirm Password"
                       type={showConfirmPassword ? "text" : "password"}

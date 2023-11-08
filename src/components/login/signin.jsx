@@ -153,7 +153,7 @@ export default function SignIn() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
+              autoComplete="off"
               autoFocus
               color="yelow"
             />
@@ -183,7 +183,7 @@ export default function SignIn() {
                     ),
                   }}
               id="password"
-              autoComplete="current-password"
+              autoComplete="off"
               color="yelow"
             />
             <FormHelperText id="standard-weight-helper-text" error='true'>{pasError}</FormHelperText>
