@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../../atoms/atomsFile.jsx";
+import {NavLink} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -224,14 +225,17 @@ export default function SignIn() {
               }}
             >
               <Grid item xs>
-                <Link href="/forgot" variant="body2">
+
+                <NavLink to="/forgot" variant="body2">
+
                   Forgot password?
-                </Link>
+                </NavLink>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+
+                <NavLink to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </Box>

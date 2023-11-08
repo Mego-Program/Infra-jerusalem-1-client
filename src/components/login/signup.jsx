@@ -24,6 +24,7 @@ import { Icon } from "@mui/material";
 import urlPage from "../../../url/urlPath";
 import { green } from "@mui/material/colors";
 import Collapse from '@mui/material/Collapse';
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -194,9 +195,10 @@ export default function SignUp() {
       >
       The email address is already registered in the system,
       </FormHelperText>
-      <Link href="/forgot" variant="body2">
+
+      <NavLink to="/forgot" variant="body2">
       Forgot password?
-      </Link>
+      </NavLink>
     </>
   }
 
@@ -450,9 +452,10 @@ export default function SignUp() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <Link href="/" variant="body2">
+
+                    <NavLink to="/" variant="body2">
                       Already have an account? Sign in
-                    </Link>
+                    </NavLink>
                   </Grid>
                 </Grid>
               </Box>
