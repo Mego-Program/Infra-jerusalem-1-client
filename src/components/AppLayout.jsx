@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import "./AppLayout.css";
-import Search from "./search";
-import ProfileCard from "./ProfileCard";
+import Search from "./Search.jsx";
+import ProfileCard from "./ProfileCard.jsx";
 import { Grid, Button, Box, Stack } from "@mui/material";
 import {
   Dashboard,
@@ -13,6 +13,9 @@ import {
   Settings,
   Info,
 } from "@mui/icons-material";
+
+
+
 
 export default function AppLayout() {
   const [selectedButton, setSelectedButton] = useState(""); // Initialize the first button as selected

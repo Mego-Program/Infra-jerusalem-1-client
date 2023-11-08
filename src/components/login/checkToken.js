@@ -2,6 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
 
+
 export default function tokencheck() {
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ export default function tokencheck() {
   }
   const res = async () => {
     try {
-      const response = await axios.post(urlPage + "users/token", localStorageToken);
+      const response = await axios.post(urlPage +"users/token", localStorageToken);
       if (response.status == 200) {
         navigate("/");
         return localStorageToken
