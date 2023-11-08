@@ -1,4 +1,6 @@
 import * as React from "react";
+import CircularTogetCode from "../CircularToGetCode";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -88,7 +90,7 @@ export default function GetCode(props) {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={2} textAlign="center">
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
@@ -115,16 +117,20 @@ export default function GetCode(props) {
               sx={{
                 marginBottom: "20px",
               }}
-              justifyContent="flex-end"
+              textAlign="center"
             >
-              <Grid item>
+              <Grid item xs={12}>
                 <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
+              <Grid item xs={12}>
+                <CircularTogetCode />
+              </Grid>
             </Grid>
           </Box>
         </Box>
+
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
