@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import urlPage from "../../../url/urlPath";
 
 function Copyright(props) {
   return (
@@ -24,13 +25,13 @@ function Copyright(props) {
   );
 }
 
-export default function GetCode(props) {
+export function GetCode(props) {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const result = await axios.post("http://localhost:5050/users/verifyEmail", {
+    const result = await axios.post(urlPage + "users/verifyEmail", {
       code: data.get("code"),
       email: props.email,
     });

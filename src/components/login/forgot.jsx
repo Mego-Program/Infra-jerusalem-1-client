@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import FormHelperText from '@mui/material/FormHelperText';
+import FormHelperText from "@mui/material/FormHelperText";
 
 function Copyright(props) {
   return (
@@ -25,47 +25,22 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function Forgot() {
-  const[emailError, setemailError] = useState("")
+  const [emailError, setemailError] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get("email")){
-      console.log('yes');
-      setemailError("")
-    const sendData = {
-      email: data.get("email"),
-      password: data.get("password"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      username: data.get("username"),
-    };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5050/users/signup",
-        sendData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status == 200) {
-        const token = response.data.token;
-        localStorage.setItem("jsonwebtoken", token);
-      }
-    } catch (error) {
-      console.error("signup failed: " + error.message);
+    if (data.get("email")) {
+      console.log("yes");
+      setemailError("");
+      const sendData = {
+        email: data.get("email"),
+        password: data.get("password"),
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        username: data.get("username"),
+      };
     }
-  }
-else{
-  if(!data.get("email")){
-    setemailError("This field is required")
-  }
-}
-};
-
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -125,10 +100,12 @@ else{
                   autoComplete="email"
                   color="yelow"
                 />
-                <FormHelperText id="standard-weight-helper-text" error='true'>{emailError}</FormHelperText>
+                <FormHelperText id="standard-weight-helper-text" error="true">
+                  {emailError}
+                </FormHelperText>
               </Grid>
-              </Grid>
-              
+            </Grid>
+
             <Button
               type="submit"
               fullWidth
