@@ -63,7 +63,7 @@ export default function SignUp() {
 
     event.preventDefault();
   };
-  const [page, setPage] = useState("code");
+  const [page, setPage] = useState("signup");
   const [email, setEmail] = useState("");
 
   function validatePassword(password) {
@@ -450,7 +450,7 @@ export default function SignUp() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <Link href="/signin" variant="body2">
+                    <Link href="/" variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>

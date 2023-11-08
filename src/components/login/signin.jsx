@@ -15,15 +15,15 @@ import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../../src/theme";
 import axios from "axios";
-import IconButton from '@mui/material/IconButton';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Visibility from '@mui/icons-material/Visibility';
+import IconButton from "@mui/material/IconButton";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from '@mui/material/FormHelperText';
-import {useNavigate} from 'react-router-dom';
+import FormHelperText from "@mui/material/FormHelperText";
+import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
-
-
+import { useAtom } from "jotai";
+import { tokenAtom } from "../../atoms/atomsFile.jsx";
 
 function Copyright(props) {
   return (
@@ -40,62 +40,61 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const[emailError, setemailError] = useState("")
-  const[pasError, setPasError] = useState("")
+  const [token, setToken] = useAtom(tokenAtom);
+
+  const [emailError, setemailError] = useState("");
+  const [pasError, setPasError] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();}
+    event.preventDefault();
+  };
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get("email") && data.get("password")){
-      setPasError("")
-      setemailError("")
-    const sendData = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
+    if (data.get("email") && data.get("password")) {
+      setPasError("");
+      setemailError("");
+      const sendData = {
+        email: data.get("email"),
+        password: data.get("password"),
+      };
 
-    try {
-      const response = await axios.post(urlPage + "users/login", {
-        sendData,
+      try {
+        const response = await axios.post(urlPage + "users/login", {
+          sendData,
 
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      if (response.status == 200) {
-        const token = response.data.token;
-        localStorage.setItem("jsonwebtoken", token);
-        navigate('/');
+        if (response.status == 200) {
+          const token = response.data.token;
+          localStorage.setItem("jsonwebtoken", token);
+          setToken(true)
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Login failed: " + error.message);
       }
-    } catch (error) {
-      console.error("Login failed: " + error.message);
+    } else {
+      if (!data.get("email")) {
+        setemailError("This field is required");
+      } else {
+        setemailError("");
+      }
+      if (!data.get("password")) {
+        setPasError("This field is required");
+      } else {
+        setPasError("");
+      }
     }
-  }
-  else{
-    if(!data.get("email")){
-      setemailError("This field is required")
-    }
-    else{
-      setemailError("")
-    }
-    if(!data.get("password")){
-      setPasError("This field is required")
-    }
-    else{
-      setPasError("")
-    }
-  }
-};
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -145,28 +144,30 @@ export default function SignIn() {
             sx={{ mt: 1 }}
           >
             <Grid container spacing={2}>
-            <Grid item xs={12}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="off"
-              autoFocus
-              color="yelow"
-            />
-            <FormHelperText id="standard-weight-helper-text" error='true'>{emailError}</FormHelperText>
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type={showPassword ? "text" : "password"}
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="off"
+                  autoFocus
+                  color="yelow"
+                />
+                <FormHelperText id="standard-weight-helper-text" error="true">
+                  {emailError}
+                </FormHelperText>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -182,28 +183,30 @@ export default function SignIn() {
                       </InputAdornment>
                     ),
                   }}
-              id="password"
-              autoComplete="off"
-              color="yelow"
-            />
-            <FormHelperText id="standard-weight-helper-text" error='true'>{pasError}</FormHelperText>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value="remember"
+                  id="password"
+                  autoComplete="off"
                   color="yelow"
-                  sx={{
-                    color: "white.main",
-                    ".MuiSvgIcon-root": {
-                      color: "inherit",
-                      borderColor: "currentColor",
-                    },
-                  }}
                 />
-              }
-              label="Remember me"
-            />
-            </Grid>
+                <FormHelperText id="standard-weight-helper-text" error="true">
+                  {pasError}
+                </FormHelperText>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="remember"
+                      color="yelow"
+                      sx={{
+                        color: "white.main",
+                        ".MuiSvgIcon-root": {
+                          color: "inherit",
+                          borderColor: "currentColor",
+                        },
+                      }}
+                    />
+                  }
+                  label="Remember me"
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
