@@ -63,7 +63,7 @@ export default function SignUp() {
 
     event.preventDefault();
   };
-  const [page, setPage] = useState("code");
+  const [page, setPage] = useState("signup");
   const [email, setEmail] = useState("");
 
   function validatePassword(password) {

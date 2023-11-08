@@ -37,7 +37,7 @@ export function GetCode(props) {
     });
 
     if (result.status == 200) {
-      navigate("/signin");
+      navigate("/");
     }
     console.log({
       code: data.get("code"),

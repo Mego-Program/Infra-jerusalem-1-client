@@ -113,14 +113,6 @@ export default function SignIn() {
         }}
       >
         <CssBaseline />
-        <button
-          onClick={() => {
-            token ? setToken(false) : setToken(true);
-            console.log("nbhjn");
-          }}
-        >
-          cange
-        </button>
         <Box
           sx={{
             marginTop: 8,
