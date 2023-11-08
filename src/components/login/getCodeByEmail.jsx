@@ -75,7 +75,7 @@ export function GetCode(props) {
                 fill: "inherit",
               }}
             />
-          </Avatar>
+          </Avatar>        
           <Typography
             component="h1"
             variant="h5"
