@@ -194,7 +194,7 @@ export default function SignUp() {
       >
       The email address is already registered in the system,
       </FormHelperText>
-      <Link href="/forgot" variant="body2">
+      <Link to="/forgot" variant="body2">
       Forgot password?
       </Link>
     </>
@@ -450,7 +450,7 @@ export default function SignUp() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <Link href="/" variant="body2">
+                    <Link to="/" variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>
