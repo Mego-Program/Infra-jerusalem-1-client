@@ -13,6 +13,7 @@ import theme from "../../theme";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FormHelperText from "@mui/material/FormHelperText";
+import {NavLink} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -123,9 +124,9 @@ export default function Forgot() {
               justifyContent="flex-end"
             >
               <Grid item>
-                <Link to="/signin" variant="body2">
+                <NavLink to="/" variant="body2">
                   Sign in
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </Box>

@@ -16,6 +16,7 @@ import theme from "../../theme";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
+import {NavLink} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -138,9 +139,9 @@ export function GetCode(props) {
               textAlign="center"
             >
               <Grid item xs={12}>
-                <Link to="/signin" variant="body2">
+                <NavLink to="/" variant="body2">
                   Already have an account? Sign in
-                </Link>
+                </NavLink>
               </Grid>
             
             </Grid>
