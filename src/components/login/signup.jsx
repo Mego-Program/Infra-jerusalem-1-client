@@ -50,6 +50,7 @@ export default function SignUp() {
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
+
     event.preventDefault();
   };
   const [page, setPage] = useState("signup");
