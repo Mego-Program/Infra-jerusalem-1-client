@@ -138,7 +138,7 @@ export function GetCode(props) {
               textAlign="center"
             >
               <Grid item xs={12}>
-                <Link to="/signin" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
