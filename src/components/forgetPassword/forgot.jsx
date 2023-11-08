@@ -15,6 +15,7 @@ import axios from "axios";
 import FormHelperText from "@mui/material/FormHelperText";
 
 import GetPassword from "./getPasswordByEmail.jsx";
+import urlPage from "../../../url/urlPath.js";
 
 function Copyright(props) {
   return (
@@ -36,22 +37,34 @@ export default function Forgot() {
     const email = data.get("email");
 
     if (email) {
-      console.log("Email is corect!");
       setemailError("");
       try {
+      
         const response = await axios.post(
-          "http://localhost:5050/forgetPassword/email",
+          urlPage + "forgetPassword/email",
           { email: email }
+  
         );
-        if (response.status == 400) {
-          setemailError("Email is incorrect");
-        } else {
+        console.log("try");
+    
+       
           setIsEmailCorrect(true);
-        }
+          console.log('else');
+        
       } catch (error) {
         console.error("An error occurred:", error);
+        if (error.response.data.mag == 'erorr email not found') {
+          console.log("if");
+          setemailError("Email is incorrect");
+        }
+        console.log(error.response.data.mag);
+        console.log('error');
       }
     }
+    
+      
+    
+    
   };
 
   return (

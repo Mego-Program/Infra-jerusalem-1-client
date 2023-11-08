@@ -13,6 +13,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import urlPage from "../../../url/urlPath.js";
+import { useState, useEffect } from "react";
+
+
 
 function Copyright(props) {
   return (
@@ -22,27 +26,51 @@ function Copyright(props) {
   );
 }
 
-export default function GetCode(props) {
-  
+export default function GetPassword(props) {
+
   const navigate = useNavigate();
+  const [passwordError, setpasswordError] = useState('');
+  const [isEmailCorrect, setIsEmailCorrect] = useState(true); // Define isPasswordCorrect
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const result = await axios.post("http://localhost:5050/users/verifyEmail", {
-      password: data.get("password"),
-      email: props.email,
-    });
+    const password = data.get("password");
 
-    if (result.status == 200) {
-      navigate("/signin");
-    }
-    console.log({
-      code: data.get("code"),
-      email: props.email,
-    });
+
+    if (password) {
+      setpasswordError("");
+
+    try {
+      const response = await axios.post( urlPage + "forgetPassword/password", {
+
+     password: password 
+    
+        //email: props.email
+      }
+        );
+console.log("try");
+
+      setIsEmailCorrect(true)
+      console.log("iscorect");
+
+    } catch (error) {
+      console.error("An error occurred:", error);
+
+      if (error.response.data.mag === 'not a corect code') {
+        console.log("if");
+        setpasswordError("Password is incorrect"); // Corrected setpasswordError to setPasswordError
+      }
+    console.log(error.response.data.mag);
+        console.log('error');
+  }
+}
   };
+   
   return (
+    <>
+    
     <ThemeProvider theme={theme}>
       <Container
         component="main"
@@ -93,8 +121,8 @@ export default function GetCode(props) {
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
-                  id="email"
-                  label="Enter the code"
+                  id="password"
+                  label="Enter the new password"
                   name="password"
                   autoFocus
                   color="yelow"
@@ -124,5 +152,7 @@ export default function GetCode(props) {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
-  );
+   
+   </>
+ );
 }
