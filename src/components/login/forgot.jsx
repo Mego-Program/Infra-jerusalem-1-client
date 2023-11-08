@@ -123,7 +123,7 @@ export default function Forgot() {
               justifyContent="flex-end"
             >
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link to="/signin" variant="body2">
                   Sign in
                 </Link>
               </Grid>
