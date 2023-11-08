@@ -75,7 +75,7 @@ export function GetCode(props) {
                 fill: "inherit",
               }}
             />
-          </Avatar>
+          </Avatar>        
           <Typography
             component="h1"
             variant="h5"
@@ -92,6 +92,23 @@ export function GetCode(props) {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} textAlign="center">
+              
+                <Grid item xs={12} sm={6}>
+                  <Typography
+                    component="h1"
+                    ariant="h5"
+                    sx={{
+                      fontSize:"15px",
+                      color: "yelow.main",
+                     }}
+                  >
+            Email verification
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CircularTogetCode />
+              </Grid>
+              
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
@@ -125,9 +142,7 @@ export function GetCode(props) {
                   Already have an account? Sign in
                 </Link>
               </Grid>
-              <Grid item xs={12}>
-                <CircularTogetCode />
-              </Grid>
+            
             </Grid>
           </Box>
         </Box>

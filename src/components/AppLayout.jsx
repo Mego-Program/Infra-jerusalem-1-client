@@ -14,9 +14,6 @@ import {
   Info,
 } from "@mui/icons-material";
 
-
-
-
 export default function AppLayout() {
   const [selectedButton, setSelectedButton] = useState(""); // Initialize the first button as selected
 
@@ -32,8 +29,8 @@ export default function AppLayout() {
       case "/Board":
         setSelectedButton("Board");
         break;
-      case "/AddUser":
-        setSelectedButton("AddUser");
+      case "/Add User":
+        setSelectedButton("Add User");
         break;
       case "/Messages":
         setSelectedButton("Messages");
@@ -100,7 +97,7 @@ export default function AppLayout() {
                 Board
               </Button>
             </NavLink>
-            <NavLink to="AddUser">
+            <NavLink to="Add User">
               <Button
                 startIcon={<PersonAdd />}
                 fullWidth
@@ -156,24 +153,27 @@ export default function AppLayout() {
 
       <Grid item xs={10}>
         <main>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems= "center"
-            spacing={20}
-            sx={{ margin: "20px" }}
+          <Grid
+            container
+            spacing={3}
+            alignItems="center"
+            sx={{ padding: "15px" }}
           >
-            <Grid item xs={7.5}>{selectedButton}</Grid>
-            <Grid item xs={1.5}>
+            <Grid item xs={5} sx={{color:"#f6c927", fontSize:"25px"}}>
+              {selectedButton}
+            </Grid>
+            <Grid item xs={4}>
               <Search />
             </Grid>
             <Grid item xs={3}>
-              <ProfileCard />
+              <ProfileCard
+                isOnline={true}
+                notifications={true}
+                numMessages={3}
+              />
             </Grid>
-          </Stack>
-          <Grid item xs={12}>
-            <Outlet />
           </Grid>
+          <Outlet />
         </main>
       </Grid>
     </Grid>
