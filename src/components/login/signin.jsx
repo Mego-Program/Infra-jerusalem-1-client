@@ -25,6 +25,7 @@ import urlPage from "../../../url/urlPath";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../../atoms/atomsFile.jsx";
 import {NavLink} from 'react-router-dom'
+import WheelWaiting from '../Features/wheelWaiting'
 
 function Copyright(props) {
   return (
@@ -45,7 +46,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [token, setToken] = useAtom(tokenAtom);
-
+  const [waiting, setWaiting] = useState(false);
   const [emailError, setemailError] = useState("");
   const [pasError, setPasError] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -64,6 +65,7 @@ export default function SignIn() {
         email: data.get("email"),
         password: data.get("password"),
       };
+      setWaiting(true)
 
       try {
         const response = await axios.post(urlPage + "users/login", {
@@ -80,8 +82,10 @@ export default function SignIn() {
           setToken(true)
           navigate("/");
         }
+        setWaiting(false)
       } catch (error) {
         console.error("Login failed: " + error.message);
+        setWaiting(false)
       }
     } else {
       if (!data.get("email")) {
@@ -98,6 +102,8 @@ export default function SignIn() {
   };
 
   return (
+    <>
+    <WheelWaiting open={waiting}/>
     <ThemeProvider theme={theme}>
       <Container
         component="main"
@@ -236,6 +242,7 @@ export default function SignIn() {
                 <NavLink to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </NavLink>
+
               </Grid>
             </Grid>
           </Box>
@@ -243,5 +250,6 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </>
   );
 }

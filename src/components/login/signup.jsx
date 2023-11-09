@@ -25,6 +25,7 @@ import urlPage from "../../../url/urlPath";
 import { green } from "@mui/material/colors";
 import Collapse from '@mui/material/Collapse';
 import {NavLink} from 'react-router-dom'
+import WheelWaiting from '../Features/wheelWaiting'
 
 
 
@@ -39,6 +40,7 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function SignUp() {
+  const [waiting, setWaiting] = useState(false);
   const [focusedPass, setFocusedPass] = useState(false);
   const [fNameError, setfNameError] = useState("");
   const [lNameError, setlNameError] = useState("");
@@ -115,6 +117,7 @@ export default function SignUp() {
       !(validateEmail(data.get("email")))
     ) {
       console.log("yes");
+      setWaiting(true)
       const sendData = {
         email: data.get("email"),
         password: data.get("password"),
@@ -133,11 +136,12 @@ export default function SignUp() {
             },
           }
         );
-
+        setWaiting(false)
         if (response.status == 200) {
           setPage("code");
         }
       } catch (error) {
+        setWaiting(false)
         if (error.response.data.errors.msg == "one of the information is error"){
           setemailExists("emailExists")
         } else{
@@ -214,6 +218,7 @@ export default function SignUp() {
 
   return (
     <>
+      <WheelWaiting open={waiting}/>
       {page == "code" && <GetCode email={email} />}
       {page == "signup" && (
         <ThemeProvider theme={theme}>

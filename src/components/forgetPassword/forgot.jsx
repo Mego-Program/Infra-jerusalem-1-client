@@ -13,9 +13,10 @@ import theme from "../../theme";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FormHelperText from "@mui/material/FormHelperText";
-
+import { NavLink } from "react-router-dom";
 import GetPassword from "./getPasswordByEmail.jsx";
 import urlPage from "../../../url/urlPath.js";
+import WheelWaiting from '../Features/wheelWaiting'
 
 function Copyright(props) {
   return (
@@ -31,14 +32,17 @@ export default function Forgot() {
   const [emailError, setemailError] = useState("");
   const [email, setEmail ] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
+  const [waiting, setWaiting] = useState(false);
 
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
 
     if (email) {
       setemailError("");
+      setWaiting(true)
       try {
       
         const response = await axios.post(
@@ -48,11 +52,12 @@ export default function Forgot() {
         );
         console.log("try");
     
-       
+        setWaiting(false)
           setIsEmailCorrect(true);
           console.log('else');
         
       } catch (error) {
+        setWaiting(false)
         console.error("An error occurred:", error);
         if (error.response.data.mag == 'erorr email not found') {
           console.log("if");
@@ -70,6 +75,7 @@ export default function Forgot() {
 
   return (
     <>
+    <WheelWaiting open={waiting}/>
       {isEmailCorrect ? (
         <GetPassword email={email}/>
       ) : (
@@ -127,7 +133,7 @@ export default function Forgot() {
                       id="email"
                       label="Email Address"
                       name="email"
-                      autoComplete="email"
+                      autoComplete="off"
                       color="yelow"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
@@ -158,9 +164,9 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <Link href="/signin" variant="body2">
+                    <NavLink to="/" variant="body2">
                       Sign in
-                    </Link>
+                    </NavLink>
                   </Grid>
                 </Grid>
               </Box>
