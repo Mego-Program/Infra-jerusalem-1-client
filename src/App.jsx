@@ -26,7 +26,7 @@ export default function App() {
     createRoutesFromElements(
       <>
       <Route path="/signup" element={<SignUp/>}/>
-      <Route path="/signin" element={<SignIn/>} />
+      <Route path="/" element={<SignIn/>} />
       <Route path="/getcode" element={<GetCode/>} />
       <Route path="/forgot" element={<Forgot/>} />
       <Route path="/" element={<AppLayout />}>

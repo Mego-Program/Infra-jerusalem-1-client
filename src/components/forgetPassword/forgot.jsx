@@ -29,6 +29,7 @@ function Copyright(props) {
 
 export default function Forgot() {
   const [emailError, setemailError] = useState("");
+  const [email, setEmail ] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -70,7 +71,7 @@ export default function Forgot() {
   return (
     <>
       {isEmailCorrect ? (
-        <GetPassword />
+        <GetPassword email={email}/>
       ) : (
         <ThemeProvider theme={theme}>
           <Container
@@ -128,6 +129,8 @@ export default function Forgot() {
                       name="email"
                       autoComplete="email"
                       color="yelow"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"

@@ -45,15 +45,16 @@ export default function GetPassword(props) {
     try {
       const response = await axios.post( urlPage + "forgetPassword/password", {
 
-     password: password 
+     password: password, 
     
-        //email: props.email
+        email: props.email
       }
         );
 console.log("try");
 
       setIsEmailCorrect(true)
       console.log("iscorect");
+      navigate('/')
 
     } catch (error) {
       console.error("An error occurred:", error);
