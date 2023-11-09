@@ -1,3 +1,4 @@
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,10 +11,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import FormHelperText from "@mui/material/FormHelperText";
-import {NavLink} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import urlPage from "../../../url/urlPath.js";
+import { useState, useEffect } from "react";
+
+
 
 function Copyright(props) {
   return (
@@ -23,27 +26,52 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
+export default function GetPassword(props) {
 
-export default function Forgot() {
-  const [emailError, setemailError] = useState("");
+  const navigate = useNavigate();
+  const [passwordError, setpasswordError] = useState('');
+  const [isEmailCorrect, setIsEmailCorrect] = useState(true); // Define isPasswordCorrect
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get("email")) {
-      console.log("yes");
-      setemailError("");
-      const sendData = {
-        email: data.get("email"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        username: data.get("username"),
-      };
-    }
-  };
+    const password = data.get("password");
 
+
+    if (password) {
+      setpasswordError("");
+
+    try {
+      const response = await axios.post( urlPage + "forgetPassword/password", {
+
+     password: password, 
+    
+        email: props.email
+      }
+        );
+console.log("try");
+
+      setIsEmailCorrect(true)
+      console.log("iscorect");
+      navigate('/')
+
+    } catch (error) {
+      console.error("An error occurred:", error);
+
+      if (error.response.data.mag === 'not a corect code') {
+        console.log("if");
+        setpasswordError("Password is incorrect"); // Corrected setpasswordError to setPasswordError
+      }
+    console.log(error.response.data.mag);
+        console.log('error');
+  }
+}
+  };
+   
   return (
+    <>
+    
     <ThemeProvider theme={theme}>
       <Container
         component="main"
@@ -82,7 +110,7 @@ export default function Forgot() {
               color: "yelow.main",
             }}
           >
-            Forgot Password
+            Password verification
           </Typography>
           <Box
             component="form"
@@ -91,22 +119,18 @@ export default function Forgot() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  margin="normal"
+                  id="password"
+                  label="Enter the new password"
+                  name="password"
+                  autoFocus
                   color="yelow"
+                  type="password"
                 />
-                <FormHelperText id="standard-weight-helper-text" error="true">
-                  {emailError}
-                </FormHelperText>
               </Grid>
             </Grid>
-
             <Button
               type="submit"
               fullWidth
@@ -114,7 +138,7 @@ export default function Forgot() {
               sx={{ mt: 3, mb: 2 }}
               color="yelow"
             >
-              Sand
+              Send
             </Button>
             <Grid
               container
@@ -123,17 +147,13 @@ export default function Forgot() {
               }}
               justifyContent="flex-end"
             >
-              <Grid item>
-
-                <NavLink to="/" variant="body2">
-                  Sign in
-                </NavLink>
-              </Grid>
             </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
-  );
+   
+   </>
+ );
 }
