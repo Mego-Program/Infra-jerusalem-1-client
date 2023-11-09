@@ -1,4 +1,6 @@
 import * as React from "react";
+import CircularTogetCode from "../CircularToGetCode";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +16,7 @@ import theme from "../../theme";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
+import {NavLink} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -35,7 +38,7 @@ export function GetCode(props) {
     });
 
     if (result.status == 200) {
-      navigate("/signin");
+      navigate("/");
     }
     console.log({
       code: data.get("code"),
@@ -73,7 +76,7 @@ export function GetCode(props) {
                 fill: "inherit",
               }}
             />
-          </Avatar>
+          </Avatar>        
           <Typography
             component="h1"
             variant="h5"
@@ -89,7 +92,24 @@ export function GetCode(props) {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={2} textAlign="center">
+              
+                <Grid item xs={12} sm={6}>
+                  <Typography
+                    component="h1"
+                    ariant="h5"
+                    sx={{
+                      fontSize:"15px",
+                      color: "yelow.main",
+                     }}
+                  >
+            Email verification
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CircularTogetCode />
+              </Grid>
+              
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
@@ -116,16 +136,20 @@ export function GetCode(props) {
               sx={{
                 marginBottom: "20px",
               }}
-              justifyContent="flex-end"
+              textAlign="center"
             >
-              <Grid item>
-                <Link href="/signin" variant="body2">
+              <Grid item xs={12}>
+
+                <NavLink to="/" variant="body2">
+
                   Already have an account? Sign in
-                </Link>
+                </NavLink>
               </Grid>
+            
             </Grid>
           </Box>
         </Box>
+
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
