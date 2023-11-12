@@ -111,7 +111,7 @@ export function GetCode(props) {
           The code is valid for 2 minutes:
           </Typography >
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <CircularTogetCode onClickFunction={onClickFunction}/>
+              <CircularTogetCode/>
             </Box>
           </Box>
 
