@@ -86,6 +86,35 @@ export function GetCode(props) {
           >
             Email verification
           </Typography>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Typography variant="body2" gutterBottom color={'yelow.main'} display='inline'>
+            Enter the code sent to you by e-mail to: {' '}
+            <Typography variant="body2" gutterBottom color={'white.main'} display='inline'>
+            {props.email}
+            </Typography>
+          </Typography>
+          </Box>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Typography variant="body2" gutterBottom color={'yelow.main'}>
+          The code is valid for 2 minutes:
+          </Typography >
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularTogetCode onClickFunction={onClickFunction}/>
+            </Box>
+          </Box>
+
           <Box
             component="form"
             noValidate
@@ -93,23 +122,6 @@ export function GetCode(props) {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} textAlign="center">
-              
-                <Grid item xs={12} sm={6}>
-                  <Typography
-                    component="h1"
-                    ariant="h5"
-                    sx={{
-                      fontSize:"15px",
-                      color: "yelow.main",
-                     }}
-                  >
-            Email verification
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <CircularTogetCode />
-              </Grid>
-              
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
@@ -140,7 +152,7 @@ export function GetCode(props) {
             >
               <Grid item xs={12}>
 
-                <NavLink to="/" variant="body2">
+                <NavLink to="/" variant="body2" style={{color:'#fff'}}>
 
                   Already have an account? Sign in
                 </NavLink>

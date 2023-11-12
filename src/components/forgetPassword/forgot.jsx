@@ -18,6 +18,10 @@ import GetPassword from "./getPasswordByEmail.jsx";
 import urlPage from "../../../url/urlPath.js";
 import WheelWaiting from '../Features/wheelWaiting'
 
+function validateEmail(email){
+  return !(/@/.test(email) && /[.]/.test(email))
+}
+
 function Copyright(props) {
   return (
     <Typography variant="body2" align="center" {...props}>
@@ -41,6 +45,9 @@ export default function Forgot() {
     const email = data.get("email");
 
     if (email) {
+      if(validateEmail(email)){
+        setemailError("The email address is incorrect")
+      } else {
       setemailError("");
       setWaiting(true)
       try {
@@ -53,8 +60,8 @@ export default function Forgot() {
         console.log("try");
     
         setWaiting(false)
-          setIsEmailCorrect(true);
-          console.log('else');
+        setIsEmailCorrect(true);
+        console.log('else');
         
       } catch (error) {
         setWaiting(false)
@@ -164,7 +171,7 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <NavLink to="/" variant="body2">
+                    <NavLink to="/" variant="body2" style={{color:'#fff'}}>
                       Sign in
                     </NavLink>
                   </Grid>
