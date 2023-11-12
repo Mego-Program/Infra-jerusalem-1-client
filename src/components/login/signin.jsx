@@ -27,6 +27,9 @@ import { tokenAtom } from "../../atoms/atomsFile.jsx";
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
 
+import axiosInstance from '../../../exios/axiosInstance.js'
+
+
 function Copyright(props) {
   return (
     <Typography
@@ -81,6 +84,14 @@ export default function SignIn() {
           localStorage.setItem("jsonwebtoken", token);
           setToken(true)
           navigate("/");
+          try {
+            axiosInstance.interceptors.request.use((config) => {
+              config.headers["x-auth-token"] = token;
+              return config;
+            });
+          } catch (error) {
+            console.error(error)
+          }
         }
         setWaiting(false)
       } catch (error) {
