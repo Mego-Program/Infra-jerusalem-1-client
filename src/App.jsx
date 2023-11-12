@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 import { tokenAtom } from "./atoms/atomsFile.jsx";
 import axios from "axios";
 import urlPage from "../url/urlPath.js";
-
+import axiosInstance from "../exios/axiosInstance.js";
 //pages
 // The pages need to be prepared and updated here
 
@@ -18,12 +18,8 @@ import AppLayout from "./components/AppLayout.jsx";
 import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
-import {GetCode} from "./components/login/getCodeByEmail.jsx"
-import Forgot from "./components/forgetPassword/forgot.jsx"
-
-
-
-
+import { GetCode } from "./components/login/getCodeByEmail.jsx";
+import Forgot from "./components/forgetPassword/forgot.jsx";
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -46,7 +42,14 @@ export default function App() {
 
           if (response.status === 200) {
             setToken(true);
-            
+            try {
+              axiosInstance.interceptors.request.use((config) => {
+                config.headers["x-auth-token"] = localStorageToken;
+                return config;
+              });
+            } catch (error) {
+              console.error(error);
+            }
           } else {
             setToken(false);
           }
