@@ -2,6 +2,7 @@ import * as React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Button from '@mui/material/Button';
 
 export default function CircularTogetCode() {
   const [timer, setTimer] = React.useState(120);
@@ -26,8 +27,13 @@ export default function CircularTogetCode() {
   }, [timer, progress]);
 
   return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" value={progress} />
+    <Box sx={{ position: "relative", display: "inline-flex"}}>
+      {timer == 'time over' ? (<>
+        <Button color='yelow' variant="outlined">Sand Again</Button>
+      </>
+      ) : (
+      <>
+      <CircularProgress variant="determinate" value={progress} color='yelow'/>
       <Box
         sx={{
           top: 0,
@@ -43,7 +49,7 @@ export default function CircularTogetCode() {
         <Typography variant="caption" component="div">
           {timer}
         </Typography>
-      </Box>
+      </Box></>)}
     </Box>
   );
 }

@@ -15,6 +15,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath.js";
 import { useState, useEffect } from "react";
+import CircularTogetCode from "../CircularToGetCode.jsx";
 
 
 
@@ -112,15 +113,44 @@ console.log("try");
           >
             Password verification
           </Typography>
+
           <Box
             component="form"
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <TextField
+          <Typography variant="body2" gutterBottom color={'yelow.main'} display='inline'>
+            Enter the code sent to you by e-mail to: {' '}
+            <Typography variant="body2" gutterBottom color={'white.main'} display='inline'>
+            {props.email}
+            </Typography>
+          </Typography>
+          </Box>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Typography variant="body2" gutterBottom color={'yelow.main'}>
+          The code is valid for 2 minutes:
+          </Typography >
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularTogetCode/>
+            </Box>
+          </Box>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12}>
+              <TextField
                   margin="normal"
                   id="password"
                   label="Enter the new password"
@@ -128,9 +158,9 @@ console.log("try");
                   autoFocus
                   color="yelow"
                   type="password"
-                />
-              </Grid>
+              />
             </Grid>
+          </Grid>
             <Button
               type="submit"
               fullWidth

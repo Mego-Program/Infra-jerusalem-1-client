@@ -22,7 +22,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "@mui/material";
 import urlPage from "../../../url/urlPath";
-import { green } from "@mui/material/colors";
 import Collapse from '@mui/material/Collapse';
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
@@ -200,7 +199,7 @@ export default function SignUp() {
       The email address is already registered in the system,
       </FormHelperText>
 
-      <NavLink to="/forgot" variant="body2">
+      <NavLink to="/forgot" variant="body2" style={{color:'#fff'}}>
       Forgot password?
       </NavLink>
     </>
@@ -458,7 +457,7 @@ export default function SignUp() {
                 >
                   <Grid item>
 
-                    <NavLink to="/" variant="body2">
+                    <NavLink to="/" variant="body2" style={{color:"#fff"}}>
                       Already have an account? Sign in
                     </NavLink>
                   </Grid>
