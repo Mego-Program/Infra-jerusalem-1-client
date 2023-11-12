@@ -16,10 +16,14 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { NavLink } from "react-router-dom";
 import GetPassword from "./getPasswordByEmail.jsx";
 import urlPage from "../../../url/urlPath.js";
-import WheelWaiting from '../Features/wheelWaiting'
+import WheelWaiting from "../Features/wheelWaiting";
 
-function validateEmail(email){
-  return !(/@/.test(email) && /[.]/.test(email))
+// import the atom
+import { emailUserForgetPassword } from "../../atoms/atomsFile.jsx";
+import { useAtom } from "jotai";
+
+function validateEmail(email) {
+  return !(/@/.test(email) && /[.]/.test(email));
 }
 
 function Copyright(props) {
@@ -34,57 +38,52 @@ function Copyright(props) {
 
 export default function Forgot() {
   const [emailError, setemailError] = useState("");
-  const [email, setEmail ] = useState("");
+  const [email, setEmail] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const [waiting, setWaiting] = useState(false);
+  const [emailAtom , setEmailAtom] = useAtom(emailUserForgetPassword)
 
   const handleSubmit = async (event) => {
     
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
+    setEmailAtom(email)
 
     if (email) {
-      if(validateEmail(email)){
-        setemailError("The email address is incorrect")
+      if (validateEmail(email)) {
+        setemailError("The email address is incorrect");
       } else {
-      setemailError("");
-      setWaiting(true)
-      try {
-      
-        const response = await axios.post(
-          urlPage + "forgetPassword/email",
-          { email: email }
-  
-        );
-        console.log("try");
-    
-        setWaiting(false)
-        setIsEmailCorrect(true);
-        console.log('else');
-        
-      } catch (error) {
-        setWaiting(false)
-        console.error("An error occurred:", error);
-        if (error.response.data.mag == 'erorr email not found') {
-          console.log("if");
-          setemailError("Email is incorrect");
+        setemailError("");
+        setWaiting(true);
+        try {
+          const response = await axios.post(urlPage + "forgetPassword/email", {
+            email: email,
+          });
+          console.log("try");
+
+          setWaiting(false);
+          setIsEmailCorrect(true);
+          console.log("else");
+        } catch (error) {
+          setWaiting(false);
+          console.error("An error occurred:", error);
+          if (error.response.data.mag == "erorr email not found") {
+            console.log("if");
+            setemailError("Email is incorrect");
+          }
+          console.log(error.response.data.mag);
+          console.log("error");
         }
-        console.log(error.response.data.mag);
-        console.log('error');
       }
-    }}
-    
-      
-    
-    
+    }
   };
 
   return (
     <>
-    <WheelWaiting open={waiting}/>
+      <WheelWaiting open={waiting} />
       {isEmailCorrect ? (
-        <GetPassword email={email}/>
+        <GetPassword />
       ) : (
         <ThemeProvider theme={theme}>
           <Container
@@ -171,7 +170,7 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <NavLink to="/" variant="body2" style={{color:'#fff'}}>
+                    <NavLink to="/" variant="body2" style={{ color: "#fff" }}>
                       Sign in
                     </NavLink>
                   </Grid>
