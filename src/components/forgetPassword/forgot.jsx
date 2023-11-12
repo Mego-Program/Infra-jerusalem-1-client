@@ -73,7 +73,7 @@ export default function Forgot() {
         console.log(error.response.data.mag);
         console.log('error');
       }
-    }
+    }}
     
       
     
