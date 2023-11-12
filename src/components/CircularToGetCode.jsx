@@ -17,7 +17,7 @@ export default function CircularTogetCode() {
 
   async function hndelSendEmail() {
     try {
-      const sendEmailUser = await axios.post(urlPage + "users/email/password", {
+      const sendEmailUser = await axios.post(urlPage + "users/email", {
         email: emailAtom,
         type: "password",
       });
