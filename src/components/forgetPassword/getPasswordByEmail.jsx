@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath.js";
 import { useState, useEffect } from "react";
 import CircularTogetCode from "../CircularToGetCode.jsx";
+import WheelWaiting from "../Features/wheelWaiting.jsx";
 
 // import the atom mail
 import { emailUserForgetPassword } from "../../atoms/atomsFile.jsx";
@@ -34,7 +35,7 @@ export default function GetPassword(props) {
   const [passwordError, setpasswordError] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(true); // Define isPasswordCorrect
   const [emailAtom, setEmailAtom] = useAtom(emailUserForgetPassword);
-
+  const [waiting, setWaiting] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,6 +45,7 @@ export default function GetPassword(props) {
       setpasswordError("");
 
       try {
+        setWaiting(true)
         const response = await axios.post(urlPage + "forgetPassword/password", {
           password: password,
 
@@ -54,7 +56,9 @@ export default function GetPassword(props) {
         setIsEmailCorrect(true);
         console.log("iscorect");
         navigate("/");
+        setWaiting(false)
       } catch (error) {
+        setWaiting(false)
         console.error("An error occurred:", error);
 
         if (error.response.data.mag === "not a corect code") {
@@ -69,6 +73,7 @@ export default function GetPassword(props) {
 
   return (
     <>
+      <WheelWaiting open={waiting}/>
       <ThemeProvider theme={theme}>
         <Container
           component="main"
@@ -144,7 +149,7 @@ export default function GetPassword(props) {
                 The code is valid for 2 minutes:
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <CircularTogetCode />
+                <CircularTogetCode typeCode={'password'}/>
               </Box>
             </Box>
 
