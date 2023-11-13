@@ -1,6 +1,6 @@
 import * as React from "react";
 import CircularTogetCode from "../CircularToGetCode";
-
+import WheelWaiting from "../Features/wheelWaiting";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
 import {NavLink} from 'react-router-dom'
+import { useState } from "react";
 
 function Copyright(props) {
   return (
@@ -28,8 +29,9 @@ function Copyright(props) {
 
 export function GetCode(props) {
   const navigate = useNavigate();
-
+  const [waiting, setWaiting] = useState(false);
   const handleSubmit = async (event) => {
+    setWaiting(true)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const result = await axios.post(urlPage + "users/verifyEmail", {
@@ -44,8 +46,11 @@ export function GetCode(props) {
       code: data.get("code"),
       email: props.email,
     });
+    setWaiting(false)
   };
   return (
+    <>
+    <WheelWaiting open={waiting}/>
     <ThemeProvider theme={theme}>
       <Container
         component="main"
@@ -111,7 +116,7 @@ export function GetCode(props) {
           The code is valid for 2 minutes:
           </Typography >
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <CircularTogetCode/>
+              <CircularTogetCode typeCode={''}/>
             </Box>
           </Box>
 
@@ -165,5 +170,6 @@ export function GetCode(props) {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </>
   );
 }
