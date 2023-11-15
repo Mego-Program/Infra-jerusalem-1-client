@@ -88,7 +88,11 @@ export default function SignIn() {
 
         if (response.status == 200) {
           const token = response.data.token;
+          const user = response.data.user;
+          // put the token and the information of the user in local storage.
           localStorage.setItem("jsonwebtoken", token);
+          localStorage.setItem("user", JSON.stringify( user));
+          
           setToken(true)
           navigate("/");
           try {

@@ -29,8 +29,9 @@ export default function App() {
   useEffect(() => {
     async function tokencheck() {
       const localStorageToken = localStorage.getItem("jsonwebtoken");
+      const localStorageUser = localStorage.getItem("user");
 
-      if (!localStorageToken) {
+      if (!localStorageToken || !localStorageUser) {
         setToken(false);
         return;
       } else {
