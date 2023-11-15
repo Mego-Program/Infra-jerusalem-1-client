@@ -17,7 +17,7 @@ import urlPage from "../../../url/urlPath.js";
 import { useState, useEffect } from "react";
 import CircularTogetCode from "../CircularToGetCode.jsx";
 import WheelWaiting from "../Features/wheelWaiting.jsx";
-
+import ErrorConection from "../Features/errorConection.jsx";
 // import the atom mail
 import { emailUserForgetPassword } from "../../atoms/atomsFile.jsx";
 import { useAtom } from "jotai";
@@ -32,6 +32,7 @@ function Copyright(props) {
 
 export default function GetPassword(props) {
   const navigate = useNavigate();
+  const [netError, setNetError] = useState(false)
   const [passwordError, setpasswordError] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(true); // Define isPasswordCorrect
   const [emailAtom, setEmailAtom] = useAtom(emailUserForgetPassword);
@@ -48,25 +49,20 @@ export default function GetPassword(props) {
         setWaiting(true)
         const response = await axios.post(urlPage + "forgetPassword/password", {
           password: password,
-
           email: emailAtom,
         });
-        console.log("try");
-
         setIsEmailCorrect(true);
-        console.log("iscorect");
         navigate("/");
         setWaiting(false)
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setNetError(true)
+        };
         setWaiting(false)
-        console.error("An error occurred:", error);
-
         if (error.response.data.mag === "not a corect code") {
           console.log("if");
           setpasswordError("Password is incorrect"); // Corrected setpasswordError to setPasswordError
         }
-        console.log(error.response.data.mag);
-        console.log("error");
       }
     }
   };
@@ -74,6 +70,7 @@ export default function GetPassword(props) {
   return (
     <>
       <WheelWaiting open={waiting}/>
+      {netError ? (<ErrorConection/>):(
       <ThemeProvider theme={theme}>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <img src="logo/logo.png" alt=""
@@ -200,6 +197,7 @@ export default function GetPassword(props) {
           <Copyright sx={{ mt: 5 }} />
         </Container>
       </ThemeProvider>
+      )}
     </>
   );
 }

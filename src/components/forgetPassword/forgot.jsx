@@ -17,7 +17,7 @@ import { NavLink } from "react-router-dom";
 import GetPassword from "./getPasswordByEmail.jsx";
 import urlPage from "../../../url/urlPath.js";
 import WheelWaiting from "../Features/wheelWaiting";
-
+import ErrorConection from "../Features/errorConection.jsx";
 // import the atom
 import { emailUserForgetPassword } from "../../atoms/atomsFile.jsx";
 import { useAtom } from "jotai";
@@ -60,20 +60,19 @@ export default function Forgot() {
           const response = await axios.post(urlPage + "forgetPassword/email", {
             email: email,
           });
-          console.log("try");
 
           setWaiting(false);
           setIsEmailCorrect(true);
-          console.log("else");
+          
         } catch (error) {
+          if (error.code=='ERR_NETWORK'){
+            setIsEmailCorrect(null)
+          };
           setWaiting(false);
-          console.error("An error occurred:", error);
           if (error.response.data.mag == "erorr email not found") {
-            console.log("if");
             setemailError("Email is incorrect");
           }
-          console.log(error.response.data.mag);
-          console.log("error");
+          
         }
       }
     }
@@ -84,7 +83,7 @@ export default function Forgot() {
       <WheelWaiting open={waiting} />
       {isEmailCorrect ? (
         <GetPassword />
-      ) : (
+      ) : (isEmailCorrect == false ?
         <ThemeProvider theme={theme}>
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <img src="logo/logo.png" alt=""
@@ -187,7 +186,7 @@ export default function Forgot() {
             <Copyright sx={{ mt: 5 }} />
           </Container>
         </ThemeProvider>
-      )}
+      :<ErrorConection/>)}
     </>
   );
 }
