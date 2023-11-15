@@ -29,6 +29,7 @@ import WheelWaiting from '../Features/wheelWaiting'
 import Alert from '@mui/material/Alert';
 import axiosInstance from '../../../exios/axiosInstance.js'
 import Collapse from '@mui/material/Collapse';
+import ErrorConection from "../Features/errorConection.jsx";
 
 function validateEmail(email){
   return !(/@/.test(email) && /[.]/.test(email))
@@ -53,6 +54,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [token, setToken] = useAtom(tokenAtom);
+  const [netError, setNetError] = useState(false)
   const [waiting, setWaiting] = useState(false);
   const [identifyingError, setIdentifyingError] = useState(false)
   const [emailError, setemailError] = useState("");
@@ -100,6 +102,9 @@ export default function SignIn() {
         }
         setWaiting(false)
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setNetError(true)
+        };
         console.error("Login failed: " + error.message);
         setWaiting(false);
         setIdentifyingError(true)
@@ -123,6 +128,7 @@ export default function SignIn() {
   return (
     <>
     <WheelWaiting open={waiting}/>
+    {netError ? (<ErrorConection/>):(
     <ThemeProvider theme={theme}>
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <img src="logo/logo.png" alt=""
@@ -278,6 +284,7 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    )}
     </>
   );
 }

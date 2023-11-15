@@ -27,6 +27,7 @@ import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
 import { useAtom } from "jotai";
 import { emailUserForgetPassword } from "../../atoms/atomsFile";
+import ErrorConection from "../Features/errorConection";
 
 function Copyright(props) {
   return (
@@ -94,6 +95,9 @@ export default function SignUp() {
           setuNameAvailable("Available!");
         }
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setPage('error')
+        };
         setuNameAvailable("Not available!");
       }
     }
@@ -143,6 +147,9 @@ export default function SignUp() {
           setPage("code");
         }
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setPage('error')
+        };
         console.log(error);
         setWaiting(false)
         if (error.response.data.errors.msg == "one of the information is error"){
@@ -222,6 +229,9 @@ export default function SignUp() {
       setWaiting(false)
     } catch (error) {
       setWaiting(false)
+      if (error.code=='ERR_NETWORK'){
+        setPage('error')
+      };
       console.log('new error');
       console.error(error);
     }
@@ -256,6 +266,7 @@ export default function SignUp() {
     <>
       <WheelWaiting open={waiting}/>
       {page == "code" && <GetCode email={email} />}
+      {page == 'error' && <ErrorConection/>}
       {page == "signup" && (
         <ThemeProvider theme={theme}>
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
