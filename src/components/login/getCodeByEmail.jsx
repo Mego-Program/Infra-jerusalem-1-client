@@ -1,6 +1,6 @@
 import * as React from "react";
 import CircularTogetCode from "../CircularToGetCode";
-
+import WheelWaiting from "../Features/wheelWaiting";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +17,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
 import {NavLink} from 'react-router-dom'
+import { useState } from "react";
+import ErrorConection from '../Features/errorConection.jsx'
 
 function Copyright(props) {
   return (
@@ -28,10 +30,14 @@ function Copyright(props) {
 
 export function GetCode(props) {
   const navigate = useNavigate();
-
+  const [netError, setNetError] = useState(false)
+  const [waiting, setWaiting] = useState(false);
   const handleSubmit = async (event) => {
+    setWaiting(true)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
+    try{
     const result = await axios.post(urlPage + "users/verifyEmail", {
       code: data.get("code"),
       email: props.email,
@@ -44,9 +50,26 @@ export function GetCode(props) {
       code: data.get("code"),
       email: props.email,
     });
+    setWaiting(false)
+  }catch (error){
+    if (error.code=='ERR_NETWORK'){
+      setNetError(true)
+    };
+  }
+
   };
   return (
+    <>
+    <WheelWaiting open={waiting}/>
+    {netError ? (<ErrorConection/>):(
     <ThemeProvider theme={theme}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
       <Container
         component="main"
         maxWidth="xs"
@@ -111,7 +134,7 @@ export function GetCode(props) {
           The code is valid for 2 minutes:
           </Typography >
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <CircularTogetCode/>
+              <CircularTogetCode typeCode={''}/>
             </Box>
           </Box>
 
@@ -165,5 +188,7 @@ export function GetCode(props) {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    )}
+    </>
   );
 }
