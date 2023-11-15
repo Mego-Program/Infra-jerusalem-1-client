@@ -1,5 +1,5 @@
 import { atom } from "jotai";
 
-export const tokenAtom = atom(false);
+export const tokenAtom = atom(null);
 
 export const emailUserForgetPassword = atom("")

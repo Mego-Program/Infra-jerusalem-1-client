@@ -124,6 +124,13 @@ export default function SignIn() {
     <>
     <WheelWaiting open={waiting}/>
     <ThemeProvider theme={theme}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
       <Container
         component="main"
         maxWidth="xs"

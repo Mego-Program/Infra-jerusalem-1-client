@@ -20,6 +20,8 @@ import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx";
+import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
+import ErrorConection from "./components/Features/errorConection.jsx";
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -91,9 +93,19 @@ export default function App() {
     )
   );
 
+  const routerDefult = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<WheelWaitingLogo open={true} />} />
+      </>
+    )
+  );
+
   return (
     <div style={{ backgroundColor: "darkblue.main" }}>
-      <RouterProvider router={token ? router : routerLogin} />
+      <RouterProvider
+        router={token ? router : token == false ? routerLogin : routerDefult}
+      />
     </div>
   );
 }
