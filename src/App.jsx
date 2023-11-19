@@ -20,6 +20,7 @@ import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import {GetCode} from "./components/login/getCodeByEmail.jsx"
 import Forgot from "./components/forgetPassword/forgot.jsx"
+import Home from "./components/homePage.jsx"
 
 
 
