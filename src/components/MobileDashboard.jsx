@@ -143,6 +143,7 @@ export default function MobileDashboard() {
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
+    setOpen(false);
   };
 
   return (
@@ -178,8 +179,9 @@ export default function MobileDashboard() {
         <Divider />
         <List>
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to="/" style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='/' onClick={() => handleButtonClick('Dashboard')}
+              onClick={() => handleButtonClick('Dashboard')}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -197,11 +199,13 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to='Projects' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='Projects' onClick={() => handleButtonClick("Projects")}
+              onClick={() => handleButtonClick("Projects")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -219,11 +223,13 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Projects" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to='Board' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='Board' onClick={() => handleButtonClick("Board")}
+               onClick={() => handleButtonClick("Board")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -241,11 +247,13 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Board" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to='AddUser' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='AddUser' onClick={() => handleButtonClick("AddUser")}
+              onClick={() => handleButtonClick("AddUser")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -263,11 +271,13 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Add User" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to='Messages' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='Messages' onClick={() => handleButtonClick("Messages")}
+               onClick={() => handleButtonClick("Messages")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -285,13 +295,15 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Messages" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
         </List>
         <Divider />
         <List>
             <ListItem disablePadding sx={{ display: 'block' }}>
+            <NavLink to='Settings' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='Settings' onClick={() => handleButtonClick("Settings")}
+              onClick={() => handleButtonClick("Settings")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -309,11 +321,13 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
 
             <ListItem  disablePadding sx={{ display: 'block' }}>
+            <NavLink to='Info' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              to='Info' onClick={() => handleButtonClick("Info")}
+              onClick={() => handleButtonClick("Info")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -331,6 +345,7 @@ export default function MobileDashboard() {
                 </ListItemIcon>
                 <ListItemText primary="Info" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              </NavLink>
             </ListItem>
         </List>
       </Drawer>
