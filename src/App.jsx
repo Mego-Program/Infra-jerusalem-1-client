@@ -10,8 +10,7 @@ import { tokenAtom } from "./atoms/atomsFile.jsx";
 import axios from "axios";
 import urlPage from "../url/urlPath.js";
 import axiosInstance from "../exios/axiosInstance.js";
-//pages
-// The pages need to be prepared and updated here
+
 
 //Layout
 import AppLayout from "./components/AppLayout.jsx";
@@ -22,6 +21,8 @@ import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
+
+import Spece from "remoteApp/App";
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -71,7 +72,7 @@ export default function App() {
         <Route path="/" element={<AppLayout />}>
           <Route index element={<p>Dashboard</p>} />
           <Route path="Projects" element={<p>Projects</p>} />
-          <Route path="Board" element={<p>Board </p>} />
+          <Route path="Board" element={<Spece />} />
           <Route path="AddUser" element={<p>Add User </p>} />
           <Route path="Messages" element={<p>Messages </p>} />
           <Route path="Settings" element={<p>Settings </p>} />
