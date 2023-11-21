@@ -118,8 +118,8 @@ export default function MobileLayout() {
       case "/":
         setSelectedButton("Dashboard");
         break;
-      case "/Projects":
-        setSelectedButton("Projects");
+      case "/Specs":
+        setSelectedButton("Specs");
         break;
       case "/Board":
         setSelectedButton("Board");
@@ -203,9 +203,9 @@ export default function MobileLayout() {
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
-            <NavLink to='Projects' style={{color: '#F6C927', textDecoration: 'none'}}>
+            <NavLink to='Specs' style={{color: '#F6C927', textDecoration: 'none'}}>
               <ListItemButton
-              onClick={() => handleButtonClick("Projects")}
+              onClick={() => handleButtonClick("Specs")}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -221,7 +221,7 @@ export default function MobileLayout() {
                 >
                  <Work color="yelow"/>
                 </ListItemIcon>
-                <ListItemText primary="Projects" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Specs" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               </NavLink>
             </ListItem>
