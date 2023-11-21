@@ -23,8 +23,8 @@ export default function DesktopDashboard() {
       case "/":
         setSelectedButton("Dashboard");
         break;
-      case "/Projects":
-        setSelectedButton("Projects");
+      case "/Specs":
+        setSelectedButton("Specs");
         break;
       case "/Board":
         setSelectedButton("Board");
@@ -73,16 +73,16 @@ export default function DesktopDashboard() {
                 Dashboard
               </Button>
             </NavLink>
-            <NavLink to="Projects">
+            <NavLink to="Specs">
               <Button
                 startIcon={<Work />}
                 fullWidth
                 className={`nav-button ${
-                  selectedButton === "Projects" ? "selected" : ""
+                  selectedButton === "Specs" ? "selected" : ""
                 }`}
-                onClick={() => handleButtonClick("Projects")}
+                onClick={() => handleButtonClick("Specs")}
               >
-                Projects
+                Specs
               </Button>
             </NavLink>
             <NavLink to="Board">
