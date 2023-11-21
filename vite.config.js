@@ -15,11 +15,11 @@ export default defineConfig({
       shared: ["jotai"],
     }),
     federation({
-      name: "spece",
+      name: "SpecsProject",
       remotes: {
         remoteApp: "http://localhost:4173/assets/remoteEntry.js",
       },
-      shared: ["react", "react-dom"],
+      shared: ["react", "react-dom","react-router-dom"],
     }),
   ],
   build: {
