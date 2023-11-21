@@ -6,10 +6,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-
+import theme
+ from "../theme";
 function Home(props) {
+ 
   return (
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={theme}>
       <Container
         component="main"
         maxWidth="xs"
@@ -39,7 +41,7 @@ function Home(props) {
               color: "yelow.main",
             }}
           >
-            Welcome to {props.companyName}
+            Welcome to הכנפיים של קורמבי {props.companyName}
           </Typography>
           <Box
             sx={{
@@ -49,7 +51,7 @@ function Home(props) {
               marginTop: 4,
             }}
           >
-            <Link to=".\login\signin.jsx" style={{ textDecoration: "none" }}>
+            <Link to=".\login" style={{ textDecoration: "none" }}>
               <Button
                 fullWidth
                 variant="contained"
