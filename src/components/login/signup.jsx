@@ -22,12 +22,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon } from "@mui/material";
 import urlPage from "../../../url/urlPath";
-import { green } from "@mui/material/colors";
 import Collapse from '@mui/material/Collapse';
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
-
-
+import { useAtom } from "jotai";
+import { emailUserForgetPassword } from "../../atoms/atomsFile";
+import ErrorConection from "../Features/errorConection";
 
 function Copyright(props) {
   return (
@@ -40,6 +40,8 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function SignUp() {
+  const [emailAtom, setEmailAtom] = useAtom(emailUserForgetPassword)
+  const [verifyEmail, setVerifyEmail] = useState(false)
   const [waiting, setWaiting] = useState(false);
   const [focusedPass, setFocusedPass] = useState(false);
   const [fNameError, setfNameError] = useState("");
@@ -93,14 +95,18 @@ export default function SignUp() {
           setuNameAvailable("Available!");
         }
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setPage('error')
+        };
         setuNameAvailable("Not available!");
       }
     }
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setEmailAtom(data.get('email'))
     
     if (
       data.get("email") &&
@@ -141,11 +147,18 @@ export default function SignUp() {
           setPage("code");
         }
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setPage('error')
+        };
+        console.log(error);
         setWaiting(false)
         if (error.response.data.errors.msg == "one of the information is error"){
           setemailExists("emailExists")
-        } else{
+        } else if(error.response.data.errors.msg =='the email is not verify'){
+          setVerifyEmail(true)
+        } else {
           setemailExists("")
+          setVerifyEmail(false)
         }
       }
     } else {
@@ -200,8 +213,41 @@ export default function SignUp() {
       The email address is already registered in the system,
       </FormHelperText>
 
-      <NavLink to="/forgot" variant="body2">
+      <NavLink to="/forgot" variant="body2" style={{color:'#fff'}}>
       Forgot password?
+      </NavLink>
+    </>
+  }
+
+  async function handleVerifyEmail(){
+    setWaiting(true)
+    try {
+      const sendEmailUser = await axios.post(urlPage + "users/email", {
+        email: emailAtom,
+      });
+      setPage("code");
+      setWaiting(false)
+    } catch (error) {
+      setWaiting(false)
+      if (error.code=='ERR_NETWORK'){
+        setPage('error')
+      };
+      console.log('new error');
+      console.error(error);
+    }
+  }
+
+  let linkEmailVerification = null;
+
+  if (verifyEmail){
+    linkEmailVerification = <>
+      <FormHelperText
+        id="standard-weight-helper-text"
+        error="true"
+      >
+        You have already registered with this address, you have not completed the verification yet.</FormHelperText>
+      <NavLink onClick={handleVerifyEmail} variant="body2" style={{color:'#fff'}}>
+      to verify the email
       </NavLink>
     </>
   }
@@ -220,8 +266,16 @@ export default function SignUp() {
     <>
       <WheelWaiting open={waiting}/>
       {page == "code" && <GetCode email={email} />}
+      {page == 'error' && <ErrorConection/>}
       {page == "signup" && (
         <ThemeProvider theme={theme}>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
           <Container
             component="main"
             maxWidth="xs"
@@ -237,9 +291,9 @@ export default function SignUp() {
             }}
           >
             <CssBaseline />
+            
             <Box
               sx={{
-                marginTop: 8,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -322,6 +376,7 @@ export default function SignUp() {
                       {emailError}
                     </FormHelperText>
                     {linkforgut}
+                    {linkEmailVerification}
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -458,7 +513,7 @@ export default function SignUp() {
                 >
                   <Grid item>
 
-                    <NavLink to="/" variant="body2">
+                    <NavLink to="/" variant="body2" style={{color:"#fff"}}>
                       Already have an account? Sign in
                     </NavLink>
                   </Grid>

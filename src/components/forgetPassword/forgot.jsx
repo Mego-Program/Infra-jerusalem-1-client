@@ -16,7 +16,15 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { NavLink } from "react-router-dom";
 import GetPassword from "./getPasswordByEmail.jsx";
 import urlPage from "../../../url/urlPath.js";
-import WheelWaiting from '../Features/wheelWaiting'
+import WheelWaiting from "../Features/wheelWaiting";
+import ErrorConection from "../Features/errorConection.jsx";
+// import the atom
+import { emailUserForgetPassword } from "../../atoms/atomsFile.jsx";
+import { useAtom } from "jotai";
+
+function validateEmail(email) {
+  return !(/@/.test(email) && /[.]/.test(email));
+}
 
 function Copyright(props) {
   return (
@@ -30,56 +38,60 @@ function Copyright(props) {
 
 export default function Forgot() {
   const [emailError, setemailError] = useState("");
-  const [email, setEmail ] = useState("");
+  const [email, setEmail] = useState("");
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const [waiting, setWaiting] = useState(false);
+  const [emailAtom , setEmailAtom] = useAtom(emailUserForgetPassword)
 
   const handleSubmit = async (event) => {
     
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
+    setEmailAtom(email)
 
     if (email) {
-      setemailError("");
-      setWaiting(true)
-      try {
-      
-        const response = await axios.post(
-          urlPage + "forgetPassword/email",
-          { email: email }
-  
-        );
-        console.log("try");
-    
-        setWaiting(false)
+      if (validateEmail(email)) {
+        setemailError("The email address is incorrect");
+      } else {
+        setemailError("");
+        setWaiting(true);
+        try {
+          const response = await axios.post(urlPage + "forgetPassword/email", {
+            email: email,
+          });
+
+          setWaiting(false);
           setIsEmailCorrect(true);
-          console.log('else');
-        
-      } catch (error) {
-        setWaiting(false)
-        console.error("An error occurred:", error);
-        if (error.response.data.mag == 'erorr email not found') {
-          console.log("if");
-          setemailError("Email is incorrect");
+          
+        } catch (error) {
+          if (error.code=='ERR_NETWORK'){
+            setIsEmailCorrect(null)
+          };
+          setWaiting(false);
+          if (error.response.data.mag == "erorr email not found") {
+            setemailError("Email is incorrect");
+          }
+          
         }
-        console.log(error.response.data.mag);
-        console.log('error');
       }
     }
-    
-      
-    
-    
   };
 
   return (
     <>
-    <WheelWaiting open={waiting}/>
+      <WheelWaiting open={waiting} />
       {isEmailCorrect ? (
-        <GetPassword email={email}/>
-      ) : (
+        <GetPassword />
+      ) : (isEmailCorrect == false ?
         <ThemeProvider theme={theme}>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
           <Container
             component="main"
             maxWidth="xs"
@@ -164,7 +176,7 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <NavLink to="/" variant="body2">
+                    <NavLink to="/" variant="body2" style={{ color: "#fff" }}>
                       Sign in
                     </NavLink>
                   </Grid>
@@ -174,7 +186,7 @@ export default function Forgot() {
             <Copyright sx={{ mt: 5 }} />
           </Container>
         </ThemeProvider>
-      )}
+      :<ErrorConection/>)}
     </>
   );
 }

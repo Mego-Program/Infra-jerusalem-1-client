@@ -26,6 +26,14 @@ import { useAtom } from "jotai";
 import { tokenAtom } from "../../atoms/atomsFile.jsx";
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
+import Alert from '@mui/material/Alert';
+import axiosInstance from '../../../exios/axiosInstance.js'
+import Collapse from '@mui/material/Collapse';
+import ErrorConection from "../Features/errorConection.jsx";
+
+function validateEmail(email){
+  return !(/@/.test(email) && /[.]/.test(email))
+}
 
 function Copyright(props) {
   return (
@@ -46,7 +54,9 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [token, setToken] = useAtom(tokenAtom);
+  const [netError, setNetError] = useState(false)
   const [waiting, setWaiting] = useState(false);
+  const [identifyingError, setIdentifyingError] = useState(false)
   const [emailError, setemailError] = useState("");
   const [pasError, setPasError] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -58,7 +68,7 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get("email") && data.get("password")) {
+    if (data.get("email") && data.get("password") && !validateEmail(data.get("email"))) {
       setPasError("");
       setemailError("");
       const sendData = {
@@ -78,18 +88,36 @@ export default function SignIn() {
 
         if (response.status == 200) {
           const token = response.data.token;
+          const user = response.data.user;
+          // put the token and the information of the user in local storage.
           localStorage.setItem("jsonwebtoken", token);
+          localStorage.setItem("user", JSON.stringify( user));
+          
           setToken(true)
           navigate("/");
+          try {
+            axiosInstance.interceptors.request.use((config) => {
+              config.headers["x-auth-token"] = token;
+              return config;
+            });
+          } catch (error) {
+            console.error(error)
+          }
         }
         setWaiting(false)
       } catch (error) {
+        if (error.code=='ERR_NETWORK'){
+          setNetError(true)
+        };
         console.error("Login failed: " + error.message);
-        setWaiting(false)
+        setWaiting(false);
+        setIdentifyingError(true)
       }
     } else {
       if (!data.get("email")) {
         setemailError("This field is required");
+      } else if (validateEmail(data.get("email"))){
+        setemailError("The email address is incorrect");
       } else {
         setemailError("");
       }
@@ -104,7 +132,15 @@ export default function SignIn() {
   return (
     <>
     <WheelWaiting open={waiting}/>
+    {netError ? (<ErrorConection/>):(
     <ThemeProvider theme={theme}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
       <Container
         component="main"
         maxWidth="xs"
@@ -197,6 +233,10 @@ export default function SignIn() {
                 <FormHelperText id="standard-weight-helper-text" error="true">
                   {pasError}
                 </FormHelperText>
+                <Collapse timeout={1000} in={identifyingError}>
+                  <Alert severity="warning">
+                    One or more of the identifying details you typed are incorrect!</Alert>
+                </Collapse>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -231,15 +271,13 @@ export default function SignIn() {
               }}
             >
               <Grid item xs>
-
-                <NavLink to="/forgot" variant="body2">
-
+                <NavLink to="/forgot" variant="body2" style={{color:'#fff'}}>
                   Forgot password?
                 </NavLink>
               </Grid>
               <Grid item>
 
-                <NavLink to="/signup" variant="body2">
+                <NavLink to="/signup" variant="body2" style={{color:'#fff'}}>
                   {"Don't have an account? Sign Up"}
                 </NavLink>
 
@@ -250,6 +288,7 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    )}
     </>
   );
 }

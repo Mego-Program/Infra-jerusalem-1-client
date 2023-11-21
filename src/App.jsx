@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 import { tokenAtom } from "./atoms/atomsFile.jsx";
 import axios from "axios";
 import urlPage from "../url/urlPath.js";
-
+import axiosInstance from "../exios/axiosInstance.js";
 //pages
 // The pages need to be prepared and updated here
 
@@ -18,7 +18,9 @@ import AppLayout from "./components/AppLayout.jsx";
 import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
-import {GetCode} from "./components/login/getCodeByEmail.jsx"
+import { GetCode } from "./components/login/getCodeByEmail.jsx";
+import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
+import ErrorConection from "./components/Features/errorConection.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx"
 import Home from "./components/homePage.jsx"
 
@@ -32,8 +34,9 @@ export default function App() {
   useEffect(() => {
     async function tokencheck() {
       const localStorageToken = localStorage.getItem("jsonwebtoken");
+      const localStorageUser = localStorage.getItem("user");
 
-      if (!localStorageToken) {
+      if (!localStorageToken || !localStorageUser) {
         setToken(false);
         return;
       } else {
@@ -45,9 +48,17 @@ export default function App() {
             },
           });
 
+
           if (response.status === 200) {
             setToken(true);
-            
+            try {
+              axiosInstance.interceptors.request.use((config) => {
+                config.headers["x-auth-token"] = localStorageToken;
+                return config;
+              });
+            } catch (error) {
+              console.error(error);
+            }
           } else {
             setToken(false);
           }
@@ -80,7 +91,8 @@ export default function App() {
   const routerLogin = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/getcode" element={<GetCode />} />
         <Route path="/forgot" element={<Forgot />} />
@@ -89,9 +101,19 @@ export default function App() {
     )
   );
 
+  const routerDefult = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<WheelWaitingLogo open={true} />} />
+      </>
+    )
+  );
+
   return (
     <div style={{ backgroundColor: "darkblue.main" }}>
-      <RouterProvider router={token ? router : routerLogin} />
+      <RouterProvider
+        router={token ? router : token == false ? routerLogin : routerDefult}
+      />
     </div>
   );
 }
