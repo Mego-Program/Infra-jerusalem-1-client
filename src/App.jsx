@@ -22,7 +22,8 @@ import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
-import Spece from "remoteApp/App";
+import { RouterSpece } from "remoteApp/SpeceProject";
+console.log(RouterSpece);
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -64,44 +65,76 @@ export default function App() {
     }
     tokencheck();
   }, []);
+  
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          index: true,
+          element: <p>Dashboard</p>,
+        },
+        {
+          path: "Projects",
+          element: <p>Projects</p>,
+        },
+        {
+          path: "Board/",
+          children: RouterSpece,
+        },
+        {
+          path: "AddUser",
+          element: <p>Add User</p>,
+        },
+        {
+          path: "Messages",
+          element: <p>Messages</p>,
+        },
+        {
+          path: "Settings",
+          element: <p>Settings</p>,
+        },
+        {
+          path: "Info",
+          element: <p>Info</p>,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ]);
+  const routerLogin = createBrowserRouter([
+    {
+      path: "/",
+      element: <SignIn />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/getcode",
+      element: <GetCode />,
+    },
+    {
+      path: "/forgot",
+      element: <Forgot />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ]);
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        (
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<p>Dashboard</p>} />
-          <Route path="Projects" element={<p>Projects</p>} />
-          <Route path="Board" element={<Spece />} />
-          <Route path="AddUser" element={<p>Add User </p>} />
-          <Route path="Messages" element={<p>Messages </p>} />
-          <Route path="Settings" element={<p>Settings </p>} />
-          <Route path="Info" element={<p>Info </p>} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-        )
-      </>
-    )
-  );
-  const routerLogin = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/getcode" element={<GetCode />} />
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="*" element={<NotFound />} />
-      </>
-    )
-  );
-
-  const routerDefult = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<WheelWaitingLogo open={true} />} />
-      </>
-    )
-  );
+  const routerDefult = createBrowserRouter([
+    {
+      path: "*",
+      element: <WheelWaitingLogo open={true} />,
+    },
+  ]);
 
   return (
     <div style={{ backgroundColor: "darkblue.main" }}>
