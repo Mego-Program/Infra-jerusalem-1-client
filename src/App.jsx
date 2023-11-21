@@ -1,3 +1,4 @@
+//react
 import React, { useEffect, useState } from "react";
 import {
   createBrowserRouter,
@@ -5,16 +6,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { useAtom } from "jotai";
-import { tokenAtom } from "./atoms/atomsFile.jsx";
-import axios from "axios";
-import urlPage from "../url/urlPath.js";
-import axiosInstance from "../exios/axiosInstance.js";
-//pages
-// The pages need to be prepared and updated here
 
-//Layout
-import AppLayout from "./components/AppLayout.jsx";
+//atom
+import { useAtom } from "jotai";
+import { tokenAtom, userInfo } from "./atoms/atomsFile.jsx";
+
+import axios from "axios";
+import axiosInstance from "../exios/axiosInstance.js";
+import urlPage from "../url/urlPath.js";
+
+//pages
 import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
@@ -23,8 +24,13 @@ import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
+//Layout
+import AppLayout from "./components/AppLayout.jsx";
+
+
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
+  const [info, setUserInfo] = useAtom(userInfo);
 
   useEffect(() => {
     async function tokencheck() {
@@ -45,6 +51,7 @@ export default function App() {
 
           if (response.status === 200) {
             setToken(true);
+            setUserInfo(JSON.parse(localStorageUser))
             try {
               axiosInstance.interceptors.request.use((config) => {
                 config.headers["x-auth-token"] = localStorageToken;
