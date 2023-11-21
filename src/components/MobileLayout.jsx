@@ -100,7 +100,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MobileDashboard() {
+export default function MobileLayout() {
     const [selectedButton, setSelectedButton] = useState("");
   const theme = useTheme();
   const [open, setOpen] = useState(false);

@@ -14,7 +14,7 @@ import {
   Info,
 } from "@mui/icons-material";
 
-export default function DesktopDashboard() {
+export default function DesktopLayout() {
   const [selectedButton, setSelectedButton] = useState(""); // Initialize the first button as selected
 
   useEffect(() => {
