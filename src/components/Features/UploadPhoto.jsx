@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
-import axios from "axios";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -50,11 +49,7 @@ export default function UploadPhoto() {
 
   const uploadImage = async (event) => {
     const file = event.target.files[0];
-    setImage(shortenString(file.name));
-    console.log(file);
-
-    // const formData = new FormData();
-    // formData.append('image', file);
+    setImage(shortenString(file.name));    
   };
 
   return (
@@ -76,6 +71,7 @@ export default function UploadPhoto() {
     >
       {image}
       <VisuallyHiddenInput
+      name="image"
         accept="image/jpeg, image/png"
         type="file"
         onChange={uploadImage}
