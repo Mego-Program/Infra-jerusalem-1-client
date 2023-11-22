@@ -27,6 +27,7 @@ import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
 import { useAtom } from "jotai";
 import { emailUserForgetPassword } from "../../atoms/atomsFile";
+import UploadPhoto from "../Features/UploadPhoto";
 import ErrorConection from "../Features/errorConection";
 
 function Copyright(props) {
@@ -378,7 +379,7 @@ export default function SignUp() {
                     {linkforgut}
                     {linkEmailVerification}
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sm={8}>
                     <TextField
                       onChange={usernameCheck}
                       required
@@ -402,6 +403,9 @@ export default function SignUp() {
                     >
                       {uNameError}
                     </FormHelperText>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                      <UploadPhoto/>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
