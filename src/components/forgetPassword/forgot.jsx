@@ -163,8 +163,7 @@ export default function Forgot() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  color="yelow"
+                  sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main'  }}
                 >
                   Sand
                 </Button>

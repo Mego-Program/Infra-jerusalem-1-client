@@ -67,11 +67,11 @@ export default function UploadPhoto() {
   
   return (
     <Button
-    sx={{fontSize:'8px', fontWeight:'normal',overflow: 'hidden', height:'56px'}}
+    sx={{fontSize:'8px', fontWeight:'normal',overflow: 'hidden', height:'56px', border:"solid", borderColor:'yelow.main', color:'yelow.main' }}
     component="label"
     fullWidth
     variant="contained"
-    color='yelow'
+    color='darkblue'
     startIcon={<CloudUploadIcon />}>
       {image}
       <VisuallyHiddenInput type="file" onChange={uploadImage}/>
