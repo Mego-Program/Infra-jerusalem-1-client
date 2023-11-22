@@ -4,15 +4,17 @@ import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useAtom } from "jotai";
+import { userInfo } from "../atoms/atomsFile";
 
 const ProfileCard = ({
   userIcon,
-  userName,
   userRole,
   isOnline,
   notifications,
   numMessages,
 }) => {
+  const [info, setUser] = useAtom(userInfo);
   return (
     <div
       style={{
@@ -44,7 +46,6 @@ const ProfileCard = ({
           }}
         >
           <Avatar
-            alt={userName}
             src="https://simchasucot.github.io/myWebsite/myIcon/icon4.jpg" //{userIcon}
             sx={{ width: 40, height: 40 }}
           />
@@ -52,7 +53,7 @@ const ProfileCard = ({
       </Badge>
 
       <div style={{ marginLeft: "10px" }}>
-        <div>Simcha Sucot{userName}</div>
+        <div>{info.firstName + " " + info.lastName}</div>
         <div style={{ fontSize: "12px", color: "gray" }}>
           Software Developer{userRole}
         </div>

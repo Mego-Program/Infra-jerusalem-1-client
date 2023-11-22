@@ -10,7 +10,7 @@ export default function AppLayout() {
 
 useEffect(() => {
   const setResponsiveness = () => {
-    return window.innerWidth < 768  
+    return window.innerWidth < 950
       ? setIsMobile(true)
       : setIsMobile(false);
   };

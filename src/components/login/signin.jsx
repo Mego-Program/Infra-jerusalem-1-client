@@ -22,14 +22,19 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
-import { useAtom } from "jotai";
-import { tokenAtom } from "../../atoms/atomsFile.jsx";
+
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
 import Alert from '@mui/material/Alert';
 import axiosInstance from '../../../exios/axiosInstance.js'
 import Collapse from '@mui/material/Collapse';
 import ErrorConection from "../Features/errorConection.jsx";
+
+
+import { useAtom } from "jotai";
+import { tokenAtom } from "../../atoms/atomsFile.jsx";
+import { userInfo } from "../../atoms/atomsFile.jsx";
+
 
 function validateEmail(email){
   return !(/@/.test(email) && /[.]/.test(email))
@@ -54,6 +59,8 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [token, setToken] = useAtom(tokenAtom);
+  const [info, setUserInfo] = useAtom(userInfo);
+
   const [netError, setNetError] = useState(false)
   const [waiting, setWaiting] = useState(false);
   const [identifyingError, setIdentifyingError] = useState(false)
@@ -93,6 +100,7 @@ export default function SignIn() {
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("user", JSON.stringify( user));
           
+          setUserInfo(user)
           setToken(true)
           navigate("/");
           try {
@@ -259,8 +267,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              color="yelow"
+              sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main'  }}
             >
               Sign In
             </Button>
