@@ -1,4 +1,4 @@
-import ErrorConection from "../../components/Features/errorConection";
+import ErrorConection from "../src/components/Features/errorConection";
 
 
 const defaultRoutesErrorConection = [
