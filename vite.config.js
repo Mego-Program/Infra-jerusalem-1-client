@@ -12,11 +12,15 @@ export default defineConfig({
       exposes: {
         "./UserAtom": "./src/atoms/atomUser",
       },
-      shared: {
-        jotai: {
-          singleton: true, // Set this to true if 'jotai' is a singleton
-        },
+      shared: ["jotai"],
+    }),
+    federation({
+      name: "SpecsProject",
+      remotes: {
+        remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
+        // remoteSpecs: "http://localhost:4173/assets/remoteEntry.js",
       },
+      shared: ["react", "react-dom","react-router-dom"],
     }),
   ],
   build: {
