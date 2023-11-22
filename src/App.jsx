@@ -17,6 +17,7 @@ import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
+import Forgot from './components/forgetPassword/forgot.jsx'
 import ErrorConection from "./components/Features/errorConection.jsx";
 
 import { useState } from "react";
