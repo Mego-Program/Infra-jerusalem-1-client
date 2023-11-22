@@ -19,16 +19,23 @@ import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
+import { useState } from "react";
 
-// out routers
-import { RouterSpecs } from "remoteApp/SpecsProject";
+//out routers
+import { RouterSpecsImpurt } from "./atoms/controllers/imports.jsx";
+
+let RouterSpecs;
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
   const [info, setUserInfo] = useAtom(userInfo);
+  const [imp, setImp] = useState("");
 
   useEffect(() => {
     async function tokencheck() {
+      RouterSpecs = await RouterSpecsImpurt();
+      setImp();
+
       const localStorageToken = localStorage.getItem("jsonwebtoken");
       const localStorageUser = localStorage.getItem("user");
 
@@ -78,11 +85,10 @@ export default function App() {
         {
           path: "Specs",
           children: RouterSpecs,
-
         },
         {
           path: "Board",
-          element :<p>Board</p>
+          element: <p>Board</p>,
         },
         {
           path: "AddUser",

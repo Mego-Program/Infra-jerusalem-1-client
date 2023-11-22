@@ -17,7 +17,7 @@ export default defineConfig({
     federation({
       name: "SpecsProject",
       remotes: {
-        remoteApp: "http://localhost:4173/assets/remoteEntry.js",
+        remoteSpecs: "http://localhost:4173/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom","react-router-dom"],
     }),
