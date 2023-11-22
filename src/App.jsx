@@ -16,9 +16,9 @@ import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
-import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
+
 import { useState } from "react";
 
 //out routers
@@ -50,6 +50,7 @@ export default function App() {
               "Content-Type": "application/json",
             },
           });
+
 
           if (response.status === 200) {
             setToken(true);
