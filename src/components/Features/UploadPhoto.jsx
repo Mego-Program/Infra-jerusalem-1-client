@@ -46,20 +46,10 @@ function handleWord(word) {
 
 export default function UploadPhoto() {
   const [image, setImage] = useState("Upload a profile photo");
-  const [atomImage, setAtomImage] = useAtom(atomImageUser);
 
   const uploadImage = async (event) => {
     const file = event.target.files[0];
-    setImage(shortenString(file.name));
-    console.log(file);
-    // const reader = new FormData();
-    // reader.append(file);
-    setAtomImage(file)
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   setAtomImage(reader.result)
-    // };
-    // reader.readAsDataURL(file);
+    setImage(shortenString(file.name));    
   };
 
   return (
