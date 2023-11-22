@@ -22,7 +22,7 @@ import ErrorConection from "./components/Features/errorConection.jsx";
 import { useState } from "react";
 
 //out routers
-import { RouterSpecsImpurt } from "./atoms/controllers/imports.jsx";
+import { RouterSpecsImpurt } from "../controllers/imports.jsx";
 
 let RouterSpecs;
 

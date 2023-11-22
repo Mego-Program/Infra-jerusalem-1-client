@@ -100,7 +100,7 @@ export default function SignIn() {
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("user", JSON.stringify( user));
           
-          setUserInfo(JSON.parse(user))
+          setUserInfo(user)
           setToken(true)
           navigate("/");
           try {
