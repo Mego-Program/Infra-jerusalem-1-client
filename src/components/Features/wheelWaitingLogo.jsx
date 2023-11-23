@@ -12,7 +12,7 @@ const WheelWaitingLogo = (props) => {
                   left: '305px'
                 }}/>
       </div>
-      <Modal open={props.open} onClose={false}>
+      <Modal open={props.open}>
         <div 
           style={{
             position: 'absolute',
