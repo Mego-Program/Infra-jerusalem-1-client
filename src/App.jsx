@@ -23,10 +23,12 @@ import ErrorConection from "./components/Features/errorConection.jsx";
 import { useState } from "react";
 
 //out routers
-import { RouterSpecsImpurt, RouterProImpurt } from "../controllers/imports.jsx";
+import { RouterSpecsImpurt, RouterProImpurt, RouterMessageImpurt } from "../controllers/imports.jsx";
 
 let RouterSpecs;
 let RouterPro;
+let RouterMessage;
+
 
 
 export default function App() {
@@ -38,7 +40,7 @@ export default function App() {
     async function tokencheck() {
       RouterSpecs = await RouterSpecsImpurt();
       RouterPro = await RouterProImpurt();
-      
+      RouterMessage = await RouterMessageImpurt()
 
       setImp();
 
@@ -103,7 +105,7 @@ export default function App() {
         },
         {
           path: "Messages",
-          element: <p>Messages</p>,
+          element: RouterMessage,
         },
         {
           path: "Settings",
