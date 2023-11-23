@@ -17,15 +17,17 @@ import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
-import Forgot from './components/forgetPassword/forgot.jsx'
+import Forgot from "./components/forgetPassword/forgot.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
 import { useState } from "react";
 
 //out routers
-import { RouterSpecsImpurt } from "../controllers/imports.jsx";
+import { RouterSpecsImpurt, RouterProImpurt } from "../controllers/imports.jsx";
 
 let RouterSpecs;
+let RouterPro;
+
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -35,6 +37,9 @@ export default function App() {
   useEffect(() => {
     async function tokencheck() {
       RouterSpecs = await RouterSpecsImpurt();
+      RouterPro = await RouterProImpurt();
+      
+
       setImp();
 
       const localStorageToken = localStorage.getItem("jsonwebtoken");
@@ -90,7 +95,7 @@ export default function App() {
         },
         {
           path: "Board",
-          element: <p>Board</p>,
+          element: RouterPro ,
         },
         {
           path: "AddUser",

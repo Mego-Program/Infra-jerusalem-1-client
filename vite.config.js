@@ -15,10 +15,11 @@ export default defineConfig({
       shared: ["jotai"],
     }),
     federation({
-      name: "SpecsProject",
+      name: "Projects",
       remotes: {
         // remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
-        remoteSpecs: "http://localhost:4173/assets/remoteEntry.js",
+        remoteSpecs: "http://localhost:4174/assets/remoteEntry.js",
+        remotePro: "http://localhost:4173/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom","react-router-dom"],
     }),
