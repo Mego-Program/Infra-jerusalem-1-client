@@ -46,7 +46,7 @@ const ProfileCard = ({
           }}
         >
           <Avatar
-            src="https://simchasucot.github.io/myWebsite/myIcon/icon4.jpg" //{userIcon}
+            src={info.image}
             sx={{ width: 40, height: 40 }}
           />
         </div>

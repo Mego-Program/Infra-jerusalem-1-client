@@ -25,10 +25,13 @@ import urlPage from "../../../url/urlPath";
 import Collapse from '@mui/material/Collapse';
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
-import { useAtom } from "jotai";
 import { emailUserForgetPassword } from "../../atoms/atomsFile";
 import UploadPhoto from "../Features/UploadPhoto";
 import ErrorConection from "../Features/errorConection";
+
+import { useAtom } from "jotai";
+
+
 
 function Copyright(props) {
   return (
@@ -125,21 +128,13 @@ export default function SignUp() {
     ) {
       console.log("yes");
       setWaiting(true)
-      const sendData = {
-        email: data.get("email"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        username: data.get("username"),
-      };
-
       try {
         const response = await axios.post(
           urlPage + "users/signup",
-          sendData,
+          data,
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
             },
           }
         );
