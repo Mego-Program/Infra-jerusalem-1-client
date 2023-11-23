@@ -331,7 +331,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {fNameError}
                     </FormHelperText>
@@ -348,7 +348,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {lNameError}
                     </FormHelperText>
@@ -367,7 +367,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {emailError}
                     </FormHelperText>
@@ -394,7 +394,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {uNameError}
                     </FormHelperText>
@@ -440,7 +440,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {pasError}
                     </FormHelperText>
@@ -487,7 +487,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {errorMessage}
                     </FormHelperText>
@@ -498,7 +498,8 @@ export default function SignUp() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main' }}
+                  color="darkblue"
+                  sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main', '&:hover': {backgroundColor: 'darkblue.main'   }}}
                 >
                   Sign Up
                 </Button>
@@ -511,7 +512,7 @@ export default function SignUp() {
                 >
                   <Grid item>
 
-                    <NavLink to="/" variant="body2" style={{color:"#fff"}}>
+                    <NavLink to="/" variant="body2" style={{color:"#fff",textDecoration:'underline'}}>
                       Already have an account? Sign in
                     </NavLink>
                   </Grid>
