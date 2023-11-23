@@ -516,7 +516,7 @@ export default function SignUp() {
                 >
                   <Grid item>
 
-                    <NavLink to="/" variant="body2" style={{color:"#fff"}}>
+                    <NavLink to="/" variant="body2" style={{color:"#fff",textDecoration:'underline'}}>
                       Already have an account? Sign in
                     </NavLink>
                   </Grid>

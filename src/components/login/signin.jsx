@@ -278,13 +278,13 @@ export default function SignIn() {
               }}
             >
               <Grid item xs>
-                <NavLink to="/forgot" variant="body2" style={{color:'#fff'}}>
+                <NavLink to="/forgot" variant="body2" style={{color:'#fff',textDecoration:'underline'}}>
                   Forgot password?
                 </NavLink>
               </Grid>
               <Grid item>
 
-                <NavLink to="/signup" variant="body2" style={{color:'#fff'}}>
+                <NavLink to="/signup" variant="body2" style={{color:'#fff',textDecoration:'underline'}}>
                   {"Don't have an account? Sign Up"}
                 </NavLink>
 

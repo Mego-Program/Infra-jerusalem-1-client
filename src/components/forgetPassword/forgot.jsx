@@ -175,7 +175,7 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <NavLink to="/" variant="body2" style={{ color: "#fff" }}>
+                    <NavLink to="/" variant="body2" style={{ color: "#fff" ,textDecoration:'underline'}}>
                       Sign in
                     </NavLink>
                   </Grid>
