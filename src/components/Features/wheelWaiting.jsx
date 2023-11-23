@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 const WheelWaiting = (props) => {
   return (
     <div>
-      <Modal open={props.open} onClose={false}>
+      <Modal open={props.open}>
         <div 
           style={{
             position: 'absolute',

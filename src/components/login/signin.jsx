@@ -267,7 +267,8 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main'  }}
+              color='darkblue'
+              sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main', '&:hover': {backgroundColor: 'darkblue.main'  }}}
             >
               Sign In
             </Button>
@@ -278,13 +279,13 @@ export default function SignIn() {
               }}
             >
               <Grid item xs>
-                <NavLink to="/forgot" variant="body2" style={{color:'#fff'}}>
+                <NavLink to="/forgot" variant="body2" style={{color:'#fff',textDecoration:'underline'}}>
                   Forgot password?
                 </NavLink>
               </Grid>
               <Grid item>
 
-                <NavLink to="/signup" variant="body2" style={{color:'#fff'}}>
+                <NavLink to="/signup" variant="body2" style={{color:'#fff',textDecoration:'underline'}}>
                   {"Don't have an account? Sign Up"}
                 </NavLink>
 

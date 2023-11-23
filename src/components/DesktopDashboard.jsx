@@ -52,7 +52,7 @@ export default function DesktopDashboard() {
 
   return (
     <Grid container className="app-layout">
-      <Grid item xs={2} className="sidebar">
+      <Grid item xs={2} className="sidebar" position="fixed" zIndex='4'>
         <Stack
           direction="column"
           justifyContent="space-between"
@@ -151,20 +151,26 @@ export default function DesktopDashboard() {
         </Stack>
       </Grid>
 
-      <Grid item xs={10}>
+      <Grid item xs={2} className="sidebar"></Grid>
+
+      
         <main>
           <Grid
+            item xs={10}
             container
             spacing={3}
             alignItems="center"
-            sx={{ padding: "15px" }}
+            sx={{ padding: "15px", backgroundColor:'verydarkblue.main'}}
+            position='fixed'
+            
           >
-            <Grid item xs={5} sx={{color:"#f6c927", fontSize:"25px"}}>
+            <Grid item xs={3} sx={{color:"#f6c927", fontSize:"25px"}}>
               {selectedButton}
             </Grid>
             <Grid item xs={4}>
               <Search />
             </Grid>
+            <Grid item xs={2}></Grid>
             <Grid item xs={3}>
               <ProfileCard
                 isOnline={true}
@@ -173,8 +179,10 @@ export default function DesktopDashboard() {
               />
             </Grid>
           </Grid>
+          </main>
+          <Grid item xs={10} sx={{marginTop: '100px'}}>
           <Outlet />
-        </main>
+        
       </Grid>
     </Grid>
   );
