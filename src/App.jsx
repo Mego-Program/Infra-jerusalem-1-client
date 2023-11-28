@@ -21,7 +21,7 @@ import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
 // out routers
-import { RouterSpecs } from "remoteApp/SpecsProject";
+// import { RouterSpecs } from "remoteApp/SpecsProject";
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -77,7 +77,9 @@ export default function App() {
         },
         {
           path: "Specs",
-          children: RouterSpecs,
+          // children: RouterSpecs,
+          element :<p>Bgftcvygbuyvftv</p>
+
 
         },
         {
@@ -86,7 +88,7 @@ export default function App() {
         },
         {
           path: "AddUser",
-          element: <p>Add User</p>,
+          element: <p>AddUser</p>,
         },
         {
           path: "Messages",
