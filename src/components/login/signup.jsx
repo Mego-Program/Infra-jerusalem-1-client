@@ -25,9 +25,13 @@ import urlPage from "../../../url/urlPath";
 import Collapse from '@mui/material/Collapse';
 import {NavLink} from 'react-router-dom'
 import WheelWaiting from '../Features/wheelWaiting'
-import { useAtom } from "jotai";
 import { emailUserForgetPassword } from "../../atoms/atomsFile";
+import UploadPhoto from "../Features/UploadPhoto";
 import ErrorConection from "../Features/errorConection";
+
+import { useAtom } from "jotai";
+
+
 
 function Copyright(props) {
   return (
@@ -124,21 +128,13 @@ export default function SignUp() {
     ) {
       console.log("yes");
       setWaiting(true)
-      const sendData = {
-        email: data.get("email"),
-        password: data.get("password"),
-        firstName: data.get("firstName"),
-        lastName: data.get("lastName"),
-        username: data.get("username"),
-      };
-
       try {
         const response = await axios.post(
           urlPage + "users/signup",
-          sendData,
+          data,
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
             },
           }
         );
@@ -335,7 +331,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {fNameError}
                     </FormHelperText>
@@ -352,7 +348,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {lNameError}
                     </FormHelperText>
@@ -371,14 +367,14 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {emailError}
                     </FormHelperText>
                     {linkforgut}
                     {linkEmailVerification}
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sm={8}>
                     <TextField
                       onChange={usernameCheck}
                       required
@@ -398,10 +394,13 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {uNameError}
                     </FormHelperText>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                      <UploadPhoto/>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -441,7 +440,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {pasError}
                     </FormHelperText>
@@ -488,7 +487,7 @@ export default function SignUp() {
                     />
                     <FormHelperText
                       id="standard-weight-helper-text"
-                      error="true"
+                      error={true}
                     >
                       {errorMessage}
                     </FormHelperText>
@@ -499,8 +498,8 @@ export default function SignUp() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  color="yelow"
+                  color="darkblue"
+                  sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main', '&:hover': {backgroundColor: 'darkblue.main'   }}}
                 >
                   Sign Up
                 </Button>
@@ -513,7 +512,7 @@ export default function SignUp() {
                 >
                   <Grid item>
 
-                    <NavLink to="/" variant="body2" style={{color:"#fff"}}>
+                    <NavLink to="/" variant="body2" style={{color:"#fff",textDecoration:'underline'}}>
                       Already have an account? Sign in
                     </NavLink>
                   </Grid>

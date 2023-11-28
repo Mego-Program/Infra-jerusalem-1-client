@@ -163,8 +163,8 @@ export default function Forgot() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  color="yelow"
+                  color="darkblue"
+                  sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main' , '&:hover': {backgroundColor: 'darkblue.main'}}}
                 >
                   Sand
                 </Button>
@@ -176,7 +176,7 @@ export default function Forgot() {
                   justifyContent="flex-end"
                 >
                   <Grid item>
-                    <NavLink to="/" variant="body2" style={{ color: "#fff" }}>
+                    <NavLink to="/" variant="body2" style={{ color: "#fff" ,textDecoration:'underline'}}>
                       Sign in
                     </NavLink>
                   </Grid>

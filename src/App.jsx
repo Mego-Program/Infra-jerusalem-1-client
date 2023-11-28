@@ -16,19 +16,39 @@ import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
-import Forgot from "./components/forgetPassword/forgot.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
+import Forgot from "./components/forgetPassword/forgot.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
+<<<<<<< HEAD
 // out routers
 // import { RouterSpecs } from "remoteApp/SpecsProject";
+=======
+import { useState } from "react";
+
+//out routers
+import { RouterSpecsImpurt, RouterProImpurt, RouterMessageImpurt } from "../controllers/imports.jsx";
+
+let RouterSpecs;
+let RouterPro;
+let RouterMessage;
+
+
+>>>>>>> 9ef25a045a6fd4b7fbf943360ec156db72296273
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
   const [info, setUserInfo] = useAtom(userInfo);
+  const [imp, setImp] = useState("");
 
   useEffect(() => {
     async function tokencheck() {
+      RouterSpecs = await RouterSpecsImpurt();
+      RouterPro = await RouterProImpurt();
+      RouterMessage = await RouterMessageImpurt()
+
+      setImp();
+
       const localStorageToken = localStorage.getItem("jsonwebtoken");
       const localStorageUser = localStorage.getItem("user");
 
@@ -43,6 +63,7 @@ export default function App() {
               "Content-Type": "application/json",
             },
           });
+
 
           if (response.status === 200) {
             setToken(true);
@@ -77,14 +98,18 @@ export default function App() {
         },
         {
           path: "Specs",
+<<<<<<< HEAD
           // children: RouterSpecs,
           element :<p>Bgftcvygbuyvftv</p>
 
 
+=======
+          children: RouterSpecs,
+>>>>>>> 9ef25a045a6fd4b7fbf943360ec156db72296273
         },
         {
           path: "Board",
-          element :<p>Board</p>
+          element: RouterPro ,
         },
         {
           path: "AddUser",
@@ -92,7 +117,7 @@ export default function App() {
         },
         {
           path: "Messages",
-          element: <p>Messages</p>,
+          element: RouterMessage,
         },
         {
           path: "Settings",
