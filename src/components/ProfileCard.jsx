@@ -2,10 +2,10 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useAtom } from "jotai";
 import { userInfo } from "../atoms/atomsFile";
+import AccountMenu from "./Features/profileMenu";
 
 const ProfileCard = ({
   userIcon,
@@ -79,7 +79,7 @@ const ProfileCard = ({
         sx={{ padding: "3px", background: "#21213E" }}
         color="primary"
       >
-        <MoreHorizIcon sx={{ color: "#FFF" }} />
+        <AccountMenu/>
       </IconButton>
     </div>
   );
