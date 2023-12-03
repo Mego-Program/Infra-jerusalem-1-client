@@ -165,7 +165,7 @@ export default function MobileDashboard() {
             <MenuIcon />
           </IconButton>
           <Search />
-          <AccountCircleSharpIcon sx={{marginLeft:'10%'}}/>
+          <AccountMenu/>
 
 
         </Toolbar>
