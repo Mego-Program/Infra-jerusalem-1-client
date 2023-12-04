@@ -12,9 +12,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useAtom } from "jotai";
+import { tokenAtom, userInfo } from '../../atoms/atomsFile';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [info, setUser] = useAtom(userInfo);
+  const [token, setToken] = useAtom(tokenAtom);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,6 +26,11 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    localStorage.removeItem("jsonwebtoken"); 
+    localStorage.removeItem("user");
+    setToken(false)
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -73,7 +82,9 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar 
+          src={info.image}
+          /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
@@ -91,7 +102,7 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
