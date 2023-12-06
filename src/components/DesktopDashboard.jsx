@@ -4,6 +4,7 @@ import "./AppLayout.css";
 import Search from "./Search.jsx";
 import ProfileCard from "./ProfileCard.jsx";
 import { Grid, Button, Box, Stack } from "@mui/material";
+import UploadPhotoManu from "./Features/UploadPhotoManu.jsx";
 import {
   Dashboard,
   Work,
@@ -170,7 +171,7 @@ export default function DesktopDashboard() {
             <Grid item xs={4}>
               <Search />
             </Grid>
-            <Grid item xs={2}></Grid>
+            <Grid item xs={2}><UploadPhotoManu/></Grid>
             <Grid item xs={3}>
               <ProfileCard
                 isOnline={true}

@@ -4,6 +4,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Outlet, NavLink } from "react-router-dom";
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
+import AccountMenu from "./Features/profileMenu";
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -32,6 +33,7 @@ import {
     Settings,
     Info,
   } from "@mui/icons-material";
+import UploadPhotoManu from './Features/UploadPhotoManu.jsx';
 
 const drawerWidth = 240;
 
@@ -165,6 +167,7 @@ export default function MobileDashboard() {
             <MenuIcon />
           </IconButton>
           <Search />
+          <UploadPhotoManu/>
           <AccountMenu/>
 
 
