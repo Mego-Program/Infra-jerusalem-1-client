@@ -14,7 +14,7 @@ import {
   Info,
 } from "@mui/icons-material";
 
-export default function DesktopDashboard() {
+export default function DesktopLayout() {
   const [selectedButton, setSelectedButton] = useState(""); // Initialize the first button as selected
 
   useEffect(() => {
@@ -29,8 +29,8 @@ export default function DesktopDashboard() {
       case "/Board":
         setSelectedButton("Board");
         break;
-      case "/Add User":
-        setSelectedButton("Add User");
+      case "/AddUser":
+        setSelectedButton("AddUser");
         break;
       case "/Messages":
         setSelectedButton("Messages");
@@ -97,7 +97,7 @@ export default function DesktopDashboard() {
                 Board
               </Button>
             </NavLink>
-            <NavLink to="Add User">
+            <NavLink to="AddUser">
               <Button
                 startIcon={<PersonAdd />}
                 fullWidth
