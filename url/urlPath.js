@@ -1,3 +1,4 @@
-const urlPage = "http://localhost:5050/"
 
-export default urlPage 
+const urlPage = import.meta.env.VITE_URL_SERVER
+
+export default urlPage;

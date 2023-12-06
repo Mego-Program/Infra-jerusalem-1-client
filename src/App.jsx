@@ -1,34 +1,44 @@
+//react
 import React, { useEffect, useState } from "react";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-import { useAtom } from "jotai";
-import { tokenAtom } from "./atoms/atomsFile.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+
 import axios from "axios";
+import axiosInstance from "../exios/axiosInstance.js";
 import urlPage from "../url/urlPath.js";
 
-//pages
-// The pages need to be prepared and updated here
+//atom
+import { useAtom } from "jotai";
+import { tokenAtom, userInfo } from "./atoms/atomsFile.jsx";
 
-//Layout
+//pages
 import AppLayout from "./components/AppLayout.jsx";
-import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
-import Forgot from "./components/login/forgot.jsx";
+import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
+import Forgot from "./components/forgetPassword/forgot.jsx";
+import NotFound from "./components/NotFound.jsx";
+import ErrorConection from "./components/Features/errorConection.jsx";
+
+//out routers/Application from Vite;
+import AppProjects from "remotePro/AppProjects";
+import AppCommunication from "remoteCommunication/AppCommunication";
+// import AppSpecs from 'remoteSpecs/AppSpecs';
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
+  const [info, setUserInfo] = useAtom(userInfo);
+  const [imp, setImp] = useState("");
 
   useEffect(() => {
     async function tokencheck() {
-      const localStorageToken = localStorage.getItem("jsonwebtoken");
+      setImp();
 
-      if (!localStorageToken) {
+      const localStorageToken = localStorage.getItem("jsonwebtoken");
+      const localStorageUser = localStorage.getItem("user");
+
+      if (!localStorageToken || !localStorageUser) {
         setToken(false);
         return;
       } else {
@@ -42,7 +52,15 @@ export default function App() {
 
           if (response.status === 200) {
             setToken(true);
-            
+            setUserInfo(JSON.parse(localStorageUser));
+            try {
+              axiosInstance.interceptors.request.use((config) => {
+                config.headers["x-auth-token"] = localStorageToken;
+                return config;
+              });
+            } catch (error) {
+              console.error(error);
+            }
           } else {
             setToken(false);
           }
@@ -54,39 +72,94 @@ export default function App() {
     tokencheck();
   }, []);
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        (
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<p>Dashboard</p>} />
-          <Route path="Projects" element={<p>Projects</p>} />
-          <Route path="Board" element={<p>Board </p>} />
-          <Route path="AddUser" element={<p>Add User </p>} />
-          <Route path="Messages" element={<p>Messages </p>} />
-          <Route path="Settings" element={<p>Settings </p>} />
-          <Route path="Info" element={<p>Info </p>} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-        )
-      </>
-    )
-  );
-  const routerLogin = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/getcode" element={<GetCode />} />
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="*" element={<NotFound />} />
-      </>
-    )
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          index: true,
+          element: <p>Dashboard</p>,
+        },
+        {
+          path: "Board",
+          element: (
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <AppProjects />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          path: "Specs",
+
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppSpecs />
+          //   </ErrorBoundary>
+          // ),
+        },
+        {
+          path: "AddUser",
+          element: <p>AddUser</p>,
+        },
+        {
+          path: "Messages",
+          element: (
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <AppCommunication />
+            </ErrorBoundary>
+          ),
+        },
+        {
+          path: "Settings",
+          element: <p>Settings</p>,
+        },
+        {
+          path: "Info",
+          element: <p>Info</p>,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+  ]);
+  const routerLogin = createBrowserRouter([
+    {
+      path: "/",
+      element: <SignIn />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/getcode",
+      element: <GetCode />,
+    },
+    {
+      path: "/forgot",
+      element: <Forgot />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ]);
+
+  const routerDefult = createBrowserRouter([
+    {
+      path: "*",
+      element: <WheelWaitingLogo open={true} />,
+    },
+  ]);
 
   return (
     <div style={{ backgroundColor: "darkblue.main" }}>
-      <RouterProvider router={token ? router : routerLogin} />
+      <RouterProvider
+        router={token ? router : token == false ? routerLogin : routerDefult}
+      />
     </div>
   );
 }

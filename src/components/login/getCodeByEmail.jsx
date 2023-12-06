@@ -1,6 +1,6 @@
 import * as React from "react";
 import CircularTogetCode from "../CircularToGetCode";
-
+import WheelWaiting from "../Features/wheelWaiting";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +17,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import urlPage from "../../../url/urlPath";
 import {NavLink} from 'react-router-dom'
+import { useState } from "react";
+import ErrorConection from '../Features/errorConection.jsx'
 
 function Copyright(props) {
   return (
@@ -28,10 +30,14 @@ function Copyright(props) {
 
 export function GetCode(props) {
   const navigate = useNavigate();
-
+  const [netError, setNetError] = useState(false)
+  const [waiting, setWaiting] = useState(false);
   const handleSubmit = async (event) => {
+    setWaiting(true)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
+    try{
     const result = await axios.post(urlPage + "users/verifyEmail", {
       code: data.get("code"),
       email: props.email,
@@ -44,9 +50,26 @@ export function GetCode(props) {
       code: data.get("code"),
       email: props.email,
     });
+    setWaiting(false)
+  }catch (error){
+    if (error.code=='ERR_NETWORK'){
+      setNetError(true)
+    };
+  }
+
   };
   return (
+    <>
+    <WheelWaiting open={waiting}/>
+    {netError ? (<ErrorConection/>):(
     <ThemeProvider theme={theme}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <img src="logo/logo.png" alt=""
+          style={{width: '422.89px',
+                  top: '171.09px',
+                  left: '305px',
+                }}/>
+          </div>
       <Container
         component="main"
         maxWidth="xs"
@@ -86,6 +109,35 @@ export function GetCode(props) {
           >
             Email verification
           </Typography>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Typography variant="body2" gutterBottom color={'yelow.main'} display='inline'>
+            Enter the code sent to you by e-mail to: {' '}
+            <Typography variant="body2" gutterBottom color={'white.main'} display='inline'>
+            {props.email}
+            </Typography>
+          </Typography>
+          </Box>
+
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+          <Typography variant="body2" gutterBottom color={'yelow.main'}>
+          The code is valid for 2 minutes:
+          </Typography >
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularTogetCode typeCode={''}/>
+            </Box>
+          </Box>
+
           <Box
             component="form"
             noValidate
@@ -93,23 +145,6 @@ export function GetCode(props) {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} textAlign="center">
-              
-                <Grid item xs={12} sm={6}>
-                  <Typography
-                    component="h1"
-                    ariant="h5"
-                    sx={{
-                      fontSize:"15px",
-                      color: "yelow.main",
-                     }}
-                  >
-            Email verification
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <CircularTogetCode />
-              </Grid>
-              
               <Grid item xs={12} sm={12}>
                 <TextField
                   margin="normal"
@@ -126,8 +161,8 @@ export function GetCode(props) {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              color="yelow"
+              color="darkblue"
+              sx={{ mt: 3, mb: 2, border:"solid", borderColor:'yelow.main', color:'yelow.main', '&:hover': {backgroundColor: 'darkblue.main'}}}
             >
               Send
             </Button>
@@ -140,7 +175,7 @@ export function GetCode(props) {
             >
               <Grid item xs={12}>
 
-                <NavLink to="/" variant="body2">
+                <NavLink to="/" variant="body2" style={{color:'#fff'}}>
 
                   Already have an account? Sign in
                 </NavLink>
@@ -153,5 +188,7 @@ export function GetCode(props) {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    )}
+    </>
   );
 }
