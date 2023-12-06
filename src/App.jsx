@@ -1,35 +1,30 @@
 //react
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-//atom
-import { useAtom } from "jotai";
-import { tokenAtom, userInfo } from "./atoms/atomsFile.jsx";
+import { ErrorBoundary } from "react-error-boundary";
 
 import axios from "axios";
 import axiosInstance from "../exios/axiosInstance.js";
 import urlPage from "../url/urlPath.js";
 
+//atom
+import { useAtom } from "jotai";
+import { tokenAtom, userInfo } from "./atoms/atomsFile.jsx";
+
 //pages
 import AppLayout from "./components/AppLayout.jsx";
-import NotFound from "./components/NotFound.jsx";
 import SignUp from "./components/login/signup.jsx";
 import SignIn from "./components/login/signin.jsx";
 import { GetCode } from "./components/login/getCodeByEmail.jsx";
 import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx";
+import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
-import { useState } from "react";
-
-//out routers
-import { RouterSpecsImpurt, RouterProImpurt, RouterMessageImpurt } from "../controllers/imports.jsx";
-
-let RouterSpecs;
-let RouterPro;
-let RouterMessage;
-
-
+//out routers/Application from Vite;
+import AppProjects from "remotePro/AppProjects";
+import AppCommunication from "remoteCommunication/AppCommunication";
+// import AppSpecs from 'remoteSpecs/AppSpecs';
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -38,10 +33,6 @@ export default function App() {
 
   useEffect(() => {
     async function tokencheck() {
-      RouterSpecs = await RouterSpecsImpurt();
-      RouterPro = await RouterProImpurt();
-      RouterMessage = await RouterMessageImpurt()
-
       setImp();
 
       const localStorageToken = localStorage.getItem("jsonwebtoken");
@@ -58,7 +49,6 @@ export default function App() {
               "Content-Type": "application/json",
             },
           });
-
 
           if (response.status === 200) {
             setToken(true);
@@ -92,20 +82,33 @@ export default function App() {
           element: <p>Dashboard</p>,
         },
         {
-          path: "Specs",
-          children: RouterSpecs,
+          path: "Board",
+          element: (
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <AppProjects />
+            </ErrorBoundary>
+          ),
         },
         {
-          path: "Board",
-          element: RouterPro ,
+          path: "Specs",
+
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppSpecs />
+          //   </ErrorBoundary>
+          // ),
         },
         {
           path: "AddUser",
-          element: <p>Add User</p>,
+          element: <p>AddUser</p>,
         },
         {
           path: "Messages",
-          element: RouterMessage,
+          element: (
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <AppCommunication />
+            </ErrorBoundary>
+          ),
         },
         {
           path: "Settings",

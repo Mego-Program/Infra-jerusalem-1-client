@@ -1,6 +1,6 @@
 import React from 'react'
-import MobileDashboard from './MobileDashboard'
-import DesktopDashboard from './DesktopDashboard'
+import MobileLayout from './MobileLayout'
+import DesktopLayout from './DesktopLayout'
 import { useEffect, useState } from 'react';
 
 
@@ -19,5 +19,5 @@ useEffect(() => {
   window.addEventListener("resize", () => setResponsiveness()); 
 }, []);
 
-return isMobile ? <MobileDashboard /> : <DesktopDashboard />;
+return isMobile ? <MobileLayout /> : <DesktopLayout />;
 }

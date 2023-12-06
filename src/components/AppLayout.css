@@ -16,6 +16,7 @@
 }
 .app-layout .sidebar .nav-button.selected {
   background-color: #f6c927;
+  color: #121231;
 }
 .app-layout .sidebar .nav-button.selected:hover {
   background-color: #f6c927;
