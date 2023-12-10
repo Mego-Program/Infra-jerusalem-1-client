@@ -24,7 +24,7 @@ import ErrorConection from "./components/Features/errorConection.jsx";
 //out routers/Application from Vite;
 import AppProjects from "remotePro/AppProjects";
 import AppCommunication from "remoteCommunication/AppCommunication";
-// import AppSpecs from 'remoteSpecs/AppSpecs';
+import AppSpecs from "remoteSpecs/AppSpecs";
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -83,18 +83,19 @@ export default function App() {
         },
         {
           path: "Board",
-          element: (
-            <ErrorBoundary fallback={<ErrorConection />}>
-              <AppProjects />
-            </ErrorBoundary>
-          ),
+          element: <h1>Board</h1>
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppProjects />
+          //   </ErrorBoundary>
+          // ),
         },
         {
           path: "Specs",
-
+          element: <h1>Specs</h1>
           // element: (
           //   <ErrorBoundary fallback={<ErrorConection />}>
-          //     <AppSpecs />
+          //     <>{AppSpecs}</>
           //   </ErrorBoundary>
           // ),
         },
@@ -104,11 +105,12 @@ export default function App() {
         },
         {
           path: "Messages",
-          element: (
-            <ErrorBoundary fallback={<ErrorConection />}>
-              <AppCommunication />
-            </ErrorBoundary>
-          ),
+          element: <h1>Messages</h1>
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppCommunication />
+          //   </ErrorBoundary>
+          // ),
         },
         {
           path: "Settings",
