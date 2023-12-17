@@ -18,9 +18,9 @@ export default defineConfig({
       name: "Projects",
       remotes: {
         // remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
-        // remoteSpecs: "http://localhost:4182/assets/remoteEntry.js",
-        // remotePro: "http://localhost:4180/assets/remoteEntry.js",
-        // remoteCommunication: "http://localhost:4181/assets/remoteEntry.js",
+        remoteSpecs: "http://localhost:4182/assets/remoteEntry.js",
+        remotePro: "http://localhost:4180/assets/remoteEntry.js",
+        remoteCommunication: "http://localhost:4181/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom","react-router-dom"],
     }),
