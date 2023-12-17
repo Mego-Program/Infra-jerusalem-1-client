@@ -22,8 +22,8 @@ import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
 //out routers/Application from Vite;
-import AppProjects from "remotePro/AppProjects";
-import AppCommunication from "remoteCommunication/AppCommunication";
+// import AppProjects from "remotePro/AppProjects";
+// import AppCommunication from "remoteCommunication/AppCommunication";
 // import AppSpecs from 'remoteSpecs/AppSpecs';
 
 export default function App() {
@@ -83,11 +83,11 @@ export default function App() {
         },
         {
           path: "Board",
-          element: (
-            <ErrorBoundary fallback={<ErrorConection />}>
-              <AppProjects />
-            </ErrorBoundary>
-          ),
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppProjects />
+          //   </ErrorBoundary>
+          // ),
         },
         {
           path: "Specs",
@@ -104,11 +104,11 @@ export default function App() {
         },
         {
           path: "Messages",
-          element: (
-            <ErrorBoundary fallback={<ErrorConection />}>
-              <AppCommunication />
-            </ErrorBoundary>
-          ),
+          // element: (
+          //   <ErrorBoundary fallback={<ErrorConection />}>
+          //     <AppCommunication />
+          //   </ErrorBoundary>
+          // ),
         },
         {
           path: "Settings",
