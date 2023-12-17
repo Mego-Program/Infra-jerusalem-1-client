@@ -21,10 +21,10 @@ import Forgot from "./components/forgetPassword/forgot.jsx";
 import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
-//out routers/Application from Vite;
 import AppProjects from "remotePro/AppProjects";
 import AppCommunication from "remoteCommunication/AppCommunication";
 import AppSpecs from "remoteSpecs/AppSpecs";
+
 
 export default function App() {
   const [token, setToken] = useAtom(tokenAtom);
@@ -84,11 +84,6 @@ export default function App() {
         {
           path: "Board",
           element: <h1>Board</h1>
-          // element: (
-          //   <ErrorBoundary fallback={<ErrorConection />}>
-          //     <AppProjects />
-          //   </ErrorBoundary>
-          // ),
         },
         {
           path: "Specs",
@@ -105,12 +100,8 @@ export default function App() {
         },
         {
           path: "Messages",
+
           element: <h1>Messages</h1>
-          // element: (
-          //   <ErrorBoundary fallback={<ErrorConection />}>
-          //     <AppCommunication />
-          //   </ErrorBoundary>
-          // ),
         },
         {
           path: "Settings",

@@ -32,6 +32,7 @@ import {
   Settings,
   Info,
 } from "@mui/icons-material";
+import UploadPhotoManu from './Features/UploadPhotoManu.jsx';
 
 const drawerWidth = 240;
 
@@ -169,6 +170,7 @@ export default function MobileLayout() {
             <MenuIcon />
           </IconButton>
           <Search />
+          <UploadPhotoManu/>
           <AccountCircleSharpIcon sx={{ marginLeft: "10%" }} />
         </Toolbar>
       </AppBar>
