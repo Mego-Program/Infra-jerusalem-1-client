@@ -7,7 +7,7 @@
     "dev": "vite --port 5001 --strictPort",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview --port 4199"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
     "@mui/styled-engine-sc": "^6.0.0-alpha.4",
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "cloudinary": "^1.41.0",
     "dotenv": "^16.3.1",
     "jotai": "^2.5.1",
