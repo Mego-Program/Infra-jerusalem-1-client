@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import federation from "@originjs/vite-plugin-federation";
+import 'dotenv/config';
 
-// https://vitejs.dev/config/
+const remoteUrl = process.env.VITE_REMOTE_SPECS_URL || "https://specs-1-jlm.vercel.app/assets/remoteEntry.js";
+
 export default defineConfig({
   plugins: [
     react(),
@@ -17,10 +19,9 @@ export default defineConfig({
     federation({
       name: "Projects",
       remotes: {
-        // remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
-        remoteSpecs: "http://localhost:4182/assets/remoteEntry.js",
-        remotePro: "http://localhost:4180/assets/remoteEntry.js",
-        remoteCommunication: "http://localhost:4181/assets/remoteEntry.js",
+        remoteSpecs: remoteUrl,
+        // remotePro: "http://localhost:4180/assets/remoteEntry.js",
+        // remoteCommunication: "http://localhost:4181/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom","react-router-dom"],
     }),

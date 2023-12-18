@@ -26,9 +26,9 @@ import Forgot from "./components/forgetPassword/forgot.jsx";
 import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
+import AppSpecs from "remoteSpecs/AppSpecs";
 // import AppProjects from "remotePro/AppProjects";
 // import AppCommunication from "remoteCommunication/AppCommunication";
-// import AppSpecs from "remoteSpecs/AppSpecs";
 
 
 export default function App() {
@@ -85,7 +85,8 @@ export default function App() {
           path="Board"
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
-              <AppProjects />
+              <h3>AppProjects</h3>
+              {/* <AppProjects /> */}
             </ErrorBoundary>
           }
         />
@@ -94,7 +95,8 @@ export default function App() {
           path="Messages"
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
-              <AppCommunication />
+              <h3>AppCommunication</h3>
+              {/* <AppCommunication /> */}
             </ErrorBoundary>
           }
         />
