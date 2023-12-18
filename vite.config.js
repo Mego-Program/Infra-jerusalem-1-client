@@ -5,7 +5,8 @@ import 'dotenv/config';
 
 const remoteUrl = process.env.VITE_REMOTE_SPECS_URL || "https://specs-1-jlm.vercel.app/assets/remoteEntry.js";
 
-export default defineConfig({
+
+export default defineConfig({ 
   plugins: [
     react(),
     federation({
@@ -13,6 +14,7 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         "./UserAtom": "./src/atoms/atomUser",
+        "./AllUsers": "./src/FunctionAllUsers",
       },
       shared: ["jotai"],
     }),
