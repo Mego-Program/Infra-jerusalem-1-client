@@ -1,6 +1,11 @@
 //react
 import React, { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
 import axios from "axios";
@@ -21,9 +26,9 @@ import Forgot from "./components/forgetPassword/forgot.jsx";
 import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
 
+import AppSpecs from "remoteSpecs/AppSpecs";
 // import AppProjects from "remotePro/AppProjects";
 // import AppCommunication from "remoteCommunication/AppCommunication";
-// import AppSpecs from "remoteSpecs/AppSpecs";
 
 
 export default function App() {
@@ -71,53 +76,36 @@ export default function App() {
     }
     tokencheck();
   }, []);
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <AppLayout />,
-      children: [
-        {
-          index: true,
-          element: <p>Dashboard</p>,
-        },
-        {
-          path: "Board",
-          element: <h1>Board</h1>
-        },
-        {
-          path: "Specs",
-          element: <h1>Specs</h1>
-          // element: (
-          //   <ErrorBoundary fallback={<ErrorConection />}>
-          //     <>{AppSpecs}</>
-          //   </ErrorBoundary>
-          // ),
-        },
-        {
-          path: "AddUser",
-          element: <p>AddUser</p>,
-        },
-        {
-          path: "Messages",
-
-          element: <h1>Messages</h1>
-        },
-        {
-          path: "Settings",
-          element: <p>Settings</p>,
-        },
-        {
-          path: "Info",
-          element: <p>Info</p>,
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ],
-    },
-  ]);
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="" element={<AppLayout />}>
+        <Route path="" element={<p>Dashboard</p>} />
+        <Route path="Specs">{AppSpecs}</Route>
+        <Route
+          path="Board"
+          element={
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <h3>AppProjects</h3>
+              {/* <AppProjects /> */}
+            </ErrorBoundary>
+          }
+        />
+        <Route path="AddUser" element={<h2>AddUser</h2>} />
+        <Route
+          path="Messages"
+          element={
+            <ErrorBoundary fallback={<ErrorConection />}>
+              <h3>AppCommunication</h3>
+              {/* <AppCommunication /> */}
+            </ErrorBoundary>
+          }
+        />
+        <Route path="Settings" element={<h2>Settings</h2>} />
+        <Route path="Info" element={<h2>Info</h2>} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    )
+  );
   const routerLogin = createBrowserRouter([
     {
       path: "/",
