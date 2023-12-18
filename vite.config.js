@@ -10,10 +10,10 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "userAtom",
+      name: "users",
       filename: "remoteEntry.js",
       exposes: {
-        "./UserAtom": "./src/atoms/atomUser",
+        // "./UserAtom": "./src/atoms/atomUser",
         "./AllUsers": "./src/FunctionAllUsers",
       },
       shared: ["jotai"],
