@@ -97,7 +97,7 @@ export default function App() {
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
               <h3>AppCommunication</h3>
-              <AppCommunication />
+              {/* <AppCommunication /> */}
             </ErrorBoundary>
           }
         />
