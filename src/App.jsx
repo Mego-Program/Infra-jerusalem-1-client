@@ -44,6 +44,8 @@ export default function App() {
       const localStorageToken = localStorage.getItem("jsonwebtoken");
       const localStorageUser = localStorage.getItem("user");
 
+
+      
       if (!localStorageToken || !localStorageUser) {
         setToken(false);
         return;
