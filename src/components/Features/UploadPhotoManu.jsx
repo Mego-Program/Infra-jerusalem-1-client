@@ -33,6 +33,7 @@ export default function UploadPhotoManu() {
     data.append('image', file);
     data.append('email', info.email);
 
+    
     try {
       const response = await axios.post(
         urlPage + "users/ChangeProfilePicture",
