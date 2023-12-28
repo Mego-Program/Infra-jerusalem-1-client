@@ -1,12 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import federation from "@originjs/vite-plugin-federation";
-import 'dotenv/config';
+import "dotenv/config";
 
-const remoteUrl = process.env.VITE_REMOTE_SPECS_URL || "https://specs-1-jlm.vercel.app/assets/remoteEntry.js";
+const remoteSpecsUrl =
+  process.env.VITE_REMOTE_SPECS_URL ||
+  "https://specs-1-jlm.vercel.app/assets/remoteEntry.js";
+const remoteProUrl =
+  process.env.VITE_REMOTE_PRO_URL ||
+  "https://jlm-1-pro.vercel.app/assets/remoteEntry.js";
+const remoteComUrl =
+  process.env.VITE_REMOTE_COM_URL ||
+  "https://communication-jerusalem-1-two.vercel.app/assets/remoteEntry.js";
 
-
-export default defineConfig({ 
+export default defineConfig({
   plugins: [
     react(),
     federation({
@@ -14,20 +21,20 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         // "./UserAtom": "./src/atoms/atomUser",
-        "./AllUsers": "./src/FunctionAllUsers",
       },
       shared: ["jotai"],
     }),
     federation({
       name: "Projects",
       remotes: {
-        remoteSpecs: remoteUrl,
-        // remotePro: "http://localhost:4180/assets/remoteEntry.js",
-        // remoteCommunication: "http://localhost:4181/assets/remoteEntry.js",
+        remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
+        remotePro: "http://localhost:4180/assets/remoteEntry.js",
+        remoteCommunication:
+          "https://communication-jerusalem-1-two.vercel.app/assets/remoteEntry.js",
       },
-      shared: ["react", "react-dom","react-router-dom"],
+      shared: ["react", "react-dom", "react-router-dom"],
     }),
-  ], 
+  ],
   build: {
     modulePreload: false,
     target: "esnext",
