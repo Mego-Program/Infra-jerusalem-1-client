@@ -25,14 +25,22 @@ import WheelWaitingLogo from "./components/Features/wheelWaitingLogo.jsx";
 import Forgot from "./components/forgetPassword/forgot.jsx";
 import NotFound from "./components/NotFound.jsx";
 import ErrorConection from "./components/Features/errorConection.jsx";
+import FunctionAllUsers from "./FunctionAllUsers.jsx";
 
 //remots Apliction
 import AppSpecs from "remoteSpecs/AppSpecs";
-// import AppProjects from "remotePro/AppProjects";
-// import AppCommunication from "remoteCommunication/AppCommunication";
-
+import AppProjects from "remotePro/AppProjects";
+import AppCommunication from "remoteCommunication/AppCommunication";
 
 export default function App() {
+  const users = async () => {
+    const list = await FunctionAllUsers();
+    console.log(list);
+  };
+  useEffect(() => {
+    users()
+  }, []);
+
   const [token, setToken] = useAtom(tokenAtom);
   const [info, setUserInfo] = useAtom(userInfo);
   const [imp, setImp] = useState("");
@@ -88,8 +96,7 @@ export default function App() {
           path="Board"
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
-              <h3>AppProjects</h3>
-              {/* <AppProjects /> */}
+              <AppProjects />
             </ErrorBoundary>
           }
         />
@@ -98,8 +105,7 @@ export default function App() {
           path="Messages"
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
-              <h3>AppCommunication</h3>
-              {/* <AppCommunication /> */}
+              <AppCommunication />
             </ErrorBoundary>
           }
         />
