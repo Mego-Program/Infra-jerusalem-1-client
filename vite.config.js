@@ -28,7 +28,7 @@ export default defineConfig({
       name: "Projects",
       remotes: {
         remoteSpecs: "https://specs-1-jlm.vercel.app/assets/remoteEntry.js",
-        // remotePro: "http://localhost:4180/assets/remoteEntry.js",
+        remotePro: "https://jlm-1-pro.vercel.app/assets/remoteEntry.js",
         remoteCommunication:
           "https://communication-jerusalem-1-two.vercel.app/assets/remoteEntry.js",
       },
