@@ -29,7 +29,7 @@ import FunctionAllUsers from "./FunctionAllUsers.jsx";
 
 //remots Apliction
 import AppSpecs from "remoteSpecs/AppSpecs";
-// import AppProjects from "remotePro/AppProjects";
+import AppProjects from "remotePro/AppProjects";
 import AppCommunication from "remoteCommunication/AppCommunication";
 
 export default function App() {
@@ -94,8 +94,7 @@ export default function App() {
           path="Board"
           element={
             <ErrorBoundary fallback={<ErrorConection />}>
-              <ErrorConection />
-              {/* <AppProjects /> */}
+              <AppProjects />
             </ErrorBoundary>
           }
         />
